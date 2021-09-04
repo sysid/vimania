@@ -12,6 +12,7 @@ from vimania.db.dal import DAL, TodoStatus, Todo
 from vimania.environment import config
 from vimania.handle_buffer import VimTodo
 from vimania.rifle.rifle import Rifle
+from vimania.exception import VimaniaException
 
 """ Implementation independent of vim """
 
@@ -46,6 +47,7 @@ def is_text(uri: str) -> bool:
 
 
 def do_vimania(args: str):
+    """Handler for protocol URI calls"""
     if OS_OPEN is None:
         _log.error(f"Unknown OS architecture: {sys.platform}")
         return
@@ -60,7 +62,8 @@ def do_vimania(args: str):
     if args.startswith("http"):
         _log.debug(f"Http Link")
         p = args
-    elif args[0] in "/,.,~,$":
+    # next elif needed to group all possible pathes
+    elif args[0] in "/.~$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
         if args.startswith("/"):
             _log.debug(f"Absolute path.")
             p = Path(args)
@@ -75,13 +78,13 @@ def do_vimania(args: str):
                 _log.warning(f"{p.parts[0]} not set in environment. Cannot proceed.")
                 return
             p = Path(env_path) / Path(*p.parts[1:])
-        elif args.startswith("."):
+        else:
             _log.debug(f"Relative path: {args}, working dir: {os.getcwd()}")
             p = Path(args).absolute()
 
         if not p.exists():
-            _log.warning(f"{p} does not exists.")
-            return
+            _log.error(f"{p} does not exists.")
+            raise VimaniaException(f"{p} does not exists")
     else:
         _log.warning(f"Unknown protocol: {args=}")
         return

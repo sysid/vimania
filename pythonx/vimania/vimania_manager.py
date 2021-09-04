@@ -8,6 +8,7 @@ from typing import Dict, Tuple
 
 from vimania import vim_helper
 from vimania.core import do_vimania, create_todo_, load_todos_
+from vimania.exception import VimaniaException
 from vimania.handle_buffer import handle_it, delete_todo_
 from vimania.vim_helper import feedkeys
 
@@ -42,6 +43,7 @@ def err_to_scratch_buffer(func):
     # Gotcha: static function, so now 'self'
     @wraps(func)
     def wrapper(*args, **kwds):
+        # noinspection PyBroadException
         try:
             return func(*args, **kwds)
         except Exception as e:  # pylint: disable=bare-except
@@ -50,6 +52,22 @@ def err_to_scratch_buffer(func):
 Following is the full stack trace:
 """
             msg += traceback.format_exc()
+            vim_helper.new_scratch_buffer(msg)
+
+    return wrapper
+
+
+def warn_to_scratch_buffer(func):
+    """Decorator that will catch any Exception that 'func' throws and displays
+    it in a new Vim scratch buffer."""
+
+    # Gotcha: static function, so now 'self'
+    @wraps(func)
+    def wrapper(*args, **kwds):
+        try:
+            return func(*args, **kwds)
+        except VimaniaException as e:  # pylint: disable=bare-except
+            msg = str(e)
             vim_helper.new_scratch_buffer(msg)
 
     return wrapper
@@ -86,6 +104,8 @@ class VimaniaManager:
         return locals
 
     @staticmethod
+    @err_to_scratch_buffer
+    @warn_to_scratch_buffer
     def call_vimania(args: str):
         _log.debug(f"{args=}")
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
@@ -94,6 +114,7 @@ class VimaniaManager:
         # out = vimania.convert(vim.current.line)
 
     @staticmethod
+    @err_to_scratch_buffer
     def edit_vimania(args: str):
         """Edits text files and jumps to first position of pattern
         pattern is extracted via separator: '#'
@@ -107,6 +128,7 @@ class VimaniaManager:
             vim.command(f"/{suffix}")
 
     @staticmethod
+    @err_to_scratch_buffer
     def create_todo(args: str, path: str):
         _log.debug(f"{args=}, {path=}")
         locals = VimaniaManager._get_locals()
@@ -139,6 +161,7 @@ class VimaniaManager:
         _log.info("Done")
 
     @staticmethod
+    @err_to_scratch_buffer
     def debug():
         current = vim.current
 
