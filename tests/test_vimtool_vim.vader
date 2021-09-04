@@ -1,0 +1,33 @@
+# vim: set ts=2 sw=2 tw=120 et :
+"----------------------------------- vimtool -----------------------------------
+Before:
+  messages clear
+
+Given (test-buffer text):
+  yyy://$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf
+
+Execute(Should open marked2 viewer):
+  Vimtool $HOME/dev/vim/vimtool/tests/data/test.md
+  "Vimtool /Users/Q187392/dev/vim/vimtool/tests/data/test.md
+Then ():
+  Messages
+  Cfilter Opening
+  Log printf("Len of location list: %s", len(getqflist()))
+  Assert len(getqflist()) == 1
+
+Execute(one todo should be created in vader DB):
+  VimtoolTodo - [ ] this i a todo without funnuy chars
+Then ():
+  Messages
+  Cfilter created
+  Log printf("Len of location list: %s", len(getqflist()))
+  Assert len(getqflist()) == 1
+
+Execute(markdown edit with jump to heading1):
+  VimtoolEdit /Users/Q187392/dev/vim/vimtool/tests/data/test.md# Working Examples
+  "VimtoolEdit /Users/Q187392/dev/vim/vimtool/tests/data/test.md## Config
+Then ():
+  Messages
+  Cfilter Working
+  Log printf("Len of location list: %s", len(getqflist()))
+  Assert len(getqflist()) == 2
