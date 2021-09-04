@@ -11,14 +11,14 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-TW_VIMTOOL_DB_URL=sqlite:///data/vader.db vim -Nu <(cat << EOF
+TW_VIMANIA_DB_URL=sqlite:///data/vader.db vim -Nu <(cat << EOF
 filetype off
 set rtp+=~/.vim/plugged/vader.vim
 set rtp+=~/.vim/plugged/vim-misc
 set rtp+=~/.vim/plugged/scriptease
 set rtp+=~/.vim/plugged/vim-textobj-user
 set rtp+=~/dev/vim/tw-vim
-set rtp+=~/dev/vim/vimtool
+set rtp+=~/dev/vim/vimania
 filetype plugin indent on
 syntax enable
 

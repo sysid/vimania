@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Usage:
-# run_manual.sh todo.md -> :VimtoolHandleTodos
+# run_manual.sh todo.md -> :VimaniaHandleTodos
 #
 
 cp -v data/vader.db.source data/vader.db
@@ -18,7 +18,7 @@ set rtp+=~/.vim/plugged/vim-misc
 set rtp+=~/.vim/plugged/scriptease
 set rtp+=~/.vim/plugged/vim-textobj-user
 set rtp+=~/dev/vim/tw-vim
-set rtp+=~/dev/vim/vimtool
+set rtp+=~/dev/vim/vimania
 filetype plugin indent on
 syntax enable
 

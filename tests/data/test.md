@@ -32,10 +32,10 @@ hello [there](#second-heading)
 ```bash
 URIPositioningPatternAdd! \[[^]]*\](\zs[^)]\+) markdown
 [Link description](http://www.slashdot.org/)
-[pdf: vimtool](pdf:vimtool/vimtool.pdf)
+[pdf: vimtool](pdf:vimtool/vimania.pdf)
 
-file://~/vimtool/vimtool/vimtool.pdf
-[file: vimtool](file://~/vimtool/vimtool/vimtool.pdf)
+file://~/vimtool/vimtool/vimania.pdf
+[file: vimtool](file://~/vimtool/vimtool/vimania.pdf)
 ![vimtool.png](vimtool.png)
 ```
 [bla](bla)

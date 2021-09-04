@@ -6,14 +6,14 @@ from pathlib import Path
 from pprint import pprint
 from typing import Dict, Tuple
 
-from vimtool import vim_helper
-from vimtool.core import do_vimtool, create_todo_, load_todos_
-from vimtool.handle_buffer import handle_it, delete_todo_
-from vimtool.vim_helper import feedkeys
+from vimania import vim_helper
+from vimania.core import do_vimania, create_todo_, load_todos_
+from vimania.handle_buffer import handle_it, delete_todo_
+from vimania.vim_helper import feedkeys
 
 """ Python VIM Interface Wrapper """
 
-_log = logging.getLogger("vimtool-plugin.vimtool_manager")
+_log = logging.getLogger("vimania-plugin.vimania_manager")
 ROOT_DIR = Path(__file__).parent.absolute()
 
 try:
@@ -55,7 +55,7 @@ Following is the full stack trace:
     return wrapper
 
 
-class VimToolManager:
+class VimaniaManager:
     @classmethod  # classmethod always gets class as parameter
     def get_clsname(cls):
         return cls.__name__
@@ -86,15 +86,15 @@ class VimToolManager:
         return locals
 
     @staticmethod
-    def call_vimtool(args: str):
+    def call_vimania(args: str):
         _log.debug(f"{args=}")
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
 
-        out = do_vimtool(args)
-        # out = vimtool.convert(vim.current.line)
+        out = do_vimania(args)
+        # out = vimania.convert(vim.current.line)
 
     @staticmethod
-    def edit_vimtool(args: str):
+    def edit_vimania(args: str):
         """Edits text files and jumps to first position of pattern
         pattern is extracted via separator: '#'
         """
@@ -109,7 +109,7 @@ class VimToolManager:
     @staticmethod
     def create_todo(args: str, path: str):
         _log.debug(f"{args=}, {path=}")
-        locals = VimToolManager._get_locals()
+        locals = VimaniaManager._get_locals()
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
         assert isinstance(path, str), f"Error: input must be string, got {type(path)}."
         id_ = create_todo_(args, path)
@@ -142,7 +142,7 @@ class VimToolManager:
     def debug():
         current = vim.current
 
-        locals = VimToolManager._get_locals()
+        locals = VimaniaManager._get_locals()
         # add line at end of buffer
         current.buffer[-1:0] = ["New line at end."]
 
@@ -162,7 +162,7 @@ class VimToolManager:
     @err_to_scratch_buffer
     def delete_todo(args: str, path: str):
         _log.debug(f"{args=}, {path=}")
-        locals = VimToolManager._get_locals()
+        locals = VimaniaManager._get_locals()
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
         assert isinstance(path, str), f"Error: input must be string, got {type(path)}."
         # id_ = create_todo_(args, path)

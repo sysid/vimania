@@ -17,35 +17,35 @@ depends_on = None
 
 # noinspection SqlResolve
 after_insert = """
-CREATE TRIGGER vimtool_todos_ai AFTER INSERT ON vimtool_todos
+CREATE TRIGGER vimania_todos_ai AFTER INSERT ON vimania_todos
     BEGIN
-        INSERT INTO vimtool_todos_fts (rowid, parent_id, todo, metadata, "desc", path)
+        INSERT INTO vimania_todos_fts (rowid, parent_id, todo, metadata, "desc", path)
         VALUES (new.id, new.parent_id, new.todo, new.metadata, new.desc, new.path);
     END;
 """
 
 # noinspection SqlResolve
 after_delete = """
-CREATE TRIGGER vimtool_todos_ad AFTER DELETE ON vimtool_todos
+CREATE TRIGGER vimania_todos_ad AFTER DELETE ON vimania_todos
     BEGIN
-        INSERT INTO vimtool_todos_fts (vimtool_todos_fts, rowid, parent_id, todo, metadata, "desc", path)
+        INSERT INTO vimania_todos_fts (vimania_todos_fts, rowid, parent_id, todo, metadata, "desc", path)
         VALUES ('delete', old.id, old.parent_id, old.todo, old.metadata, old.desc, old.path);
     END;
 """
 
 # noinspection SqlResolve
 after_update = """
-CREATE TRIGGER vimtool_todos_au AFTER UPDATE ON vimtool_todos
+CREATE TRIGGER vimania_todos_au AFTER UPDATE ON vimania_todos
     BEGIN
-        INSERT INTO vimtool_todos_fts (vimtool_todos_fts, rowid, parent_id, todo, metadata, "desc", path)
+        INSERT INTO vimania_todos_fts (vimania_todos_fts, rowid, parent_id, todo, metadata, "desc", path)
         VALUES ('delete', old.id, old.parent_id, old.todo, old.metadata, old.desc, old.path);
-        INSERT INTO vimtool_todos_fts (rowid, parent_id, todo, metadata, "desc", path)
+        INSERT INTO vimania_todos_fts (rowid, parent_id, todo, metadata, "desc", path)
         VALUES (new.id, new.parent_id, new.todo, new.metadata, new.desc, new.path);
     END;
 """
 
 create_fts = """
-CREATE VIRTUAL TABLE vimtool_todos_fts USING fts5(
+CREATE VIRTUAL TABLE vimania_todos_fts USING fts5(
     id,
     parent_id UNINDEXED,
     todo,
@@ -54,24 +54,24 @@ CREATE VIRTUAL TABLE vimtool_todos_fts USING fts5(
     "desc",
     "path",
     flags UNINDEXED,
-    content='vimtool_todos',
+    content='vimania_todos',
     content_rowid='id',
     tokenize="porter unicode61",
 );
 """
 
 update_time_trigger = """
-CREATE TRIGGER [UpdateLastTime] AFTER UPDATE ON vimtool_todos
+CREATE TRIGGER [UpdateLastTime] AFTER UPDATE ON vimania_todos
     FOR EACH ROW WHEN NEW.last_update_ts <= OLD.last_update_ts
     BEGIN
-        update vimtool_todos set last_update_ts=CURRENT_TIMESTAMP where id=OLD.id;
+        update vimania_todos set last_update_ts=CURRENT_TIMESTAMP where id=OLD.id;
     END;
 """
 
 
 def upgrade():
     op.create_table(
-        "vimtool_todos",
+        "vimania_todos",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("todo", sa.String(), nullable=False, unique=False),
@@ -86,7 +86,7 @@ def upgrade():
         sa.Column("created_at", sa.DateTime()),
         sa.ForeignKeyConstraint(
             ("parent_id",),
-            ["vimtool_todos.id"],
+            ["vimania_todos.id"],
         ),
     )
     op.execute(create_fts)
@@ -97,4 +97,4 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_table("vimtool_todos")
+    op.drop_table("vimania_todos")

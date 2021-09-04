@@ -26,7 +26,7 @@ if int(vim.eval('g:twvim_debug')) == 1:
 else:
   LOG_LEVEL = (logging.INFO)
 
-_log = logging.getLogger("vimtool-plugin")
+_log = logging.getLogger("vimania-plugin")
 
 if _log.handlers == []:  # avoid adding multiple handler via re-sourcing
   handler = logging.StreamHandler(sys.stdout)
@@ -51,9 +51,9 @@ _log.debug(f"{plugin_root_dir=}")
 # not necessary, default path import
 #sys.path.insert(0, script_dir)
 
-import vimtool
-from vimtool import VimToolManager
-xMgr = VimToolManager()
+import vimania
+from vimania import VimaniaManager
+xMgr = VimaniaManager()
 
 if LOG_LEVEL == logging.DEBUG:
   pprint(sys.path)
@@ -67,60 +67,60 @@ EOF
 """"""""""""""": TODO
 "redraw
 
-function! Vimtool(args)
-  call TwDebug(printf("Vimtool args: %s", a:args))
-  python3 xMgr.call_vimtool(vim.eval('a:args'))
+function! Vimania(args)
+  call TwDebug(printf("Vimania args: %s", a:args))
+  python3 xMgr.call_vimania(vim.eval('a:args'))
 endfunction
-command! -nargs=1 Vimtool call Vimtool(<f-args>)
-"nnoremap Q :Vimtool /Users/Q187392/dev/vim/vimtool/tests/data/test.md<CR>
+command! -nargs=1 Vimania call Vimania(<f-args>)
+"nnoremap Q :Vimania /Users/Q187392/dev/vim/vimania/tests/data/test.md<CR>
 
-function! VimtoolEdit(args)
-  call TwDebug(printf("Vimtool args: %s", a:args))
-  python3 xMgr.edit_vimtool(vim.eval('a:args'))
+function! VimaniaEdit(args)
+  call TwDebug(printf("Vimania args: %s", a:args))
+  python3 xMgr.edit_vimania(vim.eval('a:args'))
 endfunction
-command! -nargs=1 VimtoolEdit call VimtoolEdit(<f-args>)
-"nnoremap Q :VimtoolEdit /Users/Q187392/dev/vim/vimtool/tests/data/test.md<CR>
-nnoremap Q :VimtoolEdit /Users/Q187392/dev/vim/vimtool/tests/data/test.md#Working<CR>
+command! -nargs=1 VimaniaEdit call VimaniaEdit(<f-args>)
+"nnoremap Q :VimaniaEdit /Users/Q187392/dev/vim/vimania/tests/data/test.md<CR>
+nnoremap Q :VimaniaEdit /Users/Q187392/dev/vim/vimania/tests/data/test.md#Working<CR>
 
-function! VimtoolTodo(args, path)
-  call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaTodo(args, path)
+  call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.create_todo(vim.eval('a:args'), vim.eval('a:path'))
 endfunction
-command! -nargs=1 VimtoolTodo call VimtoolTodo(<f-args>, expand('%:p'))
-"noremap Q :VimtoolTodo - [ ] todo vimtool<CR>
+command! -nargs=1 VimaniaTodo call VimaniaTodo(<f-args>, expand('%:p'))
+"noremap Q :VimaniaTodo - [ ] todo vimania<CR>
 
-function! VimtoolLoadTodos()
-  "call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaLoadTodos()
+  "call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.load_todos()
 endfunction
-command! -nargs=0 VimtoolLoadTodos call VimtoolLoadTodos()
-"noremap Q :VimtoolLoadTodos<CR>
+command! -nargs=0 VimaniaLoadTodos call VimaniaLoadTodos()
+"noremap Q :VimaniaLoadTodos<CR>
 
-function! VimtoolDebug()
-  "call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaDebug()
+  "call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.debug()
 endfunction
-command! -nargs=0 VimtoolDebug call VimtoolDebug()
-"noremap Q :VimtoolDebug<CR>
+command! -nargs=0 VimaniaDebug call VimaniaDebug()
+"noremap Q :VimaniaDebug<CR>
 
-function! VimtoolThrowError()
-  "call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaThrowError()
+  "call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.throw_error()
 endfunction
-command! -nargs=0 VimtoolThrowError call VimtoolThrowError()
-"noremap Q :VimtoolDebug<CR>
+command! -nargs=0 VimaniaThrowError call VimaniaThrowError()
+"noremap Q :VimaniaDebug<CR>
 
-function! VimtoolHandleTodos(args)
-  "call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaHandleTodos(args)
+  "call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.handle_todos(vim.eval('a:args'))
 endfunction
-command! -nargs=1 VimtoolHandleTodos call VimtoolHandleTodos(<f-args)
+command! -nargs=1 VimaniaHandleTodos call VimaniaHandleTodos(<f-args)
 
-function! VimtoolDeleteTodo(args, path)
-  call TwDebug(printf("Vimtool args: %s, path: %s", a:args, a:path))
+function! VimaniaDeleteTodo(args, path)
+  call TwDebug(printf("Vimania args: %s, path: %s", a:args, a:path))
   python3 xMgr.delete_todo(vim.eval('a:args'), vim.eval('a:path'))
 endfunction
-command! -nargs=1 VimtoolDeleteTodo call VimtoolDeleteTodo(<f-args>, expand('%:p'))
-"noremap Q :VimtoolDeleteTodo - [ ] todo vimtool<CR>
+command! -nargs=1 VimaniaDeleteTodo call VimaniaDeleteTodo(<f-args>, expand('%:p'))
+"noremap Q :VimaniaDeleteTodo - [ ] todo vimania<CR>
 
 let g:twtodo_loaded = 1

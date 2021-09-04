@@ -12,16 +12,16 @@ from sqlalchemy.engine import Engine, Connection
 
 # from twbm.environment import Environment
 
-_log = logging.getLogger("vimtool-plugin.dal")
+_log = logging.getLogger("vimania-plugin.dal")
 logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)
 
 metadata = sa.MetaData()
 
 sim_results_table = sa.Table(
-    "vimtool_todos",
+    "vimania_todos",
     metadata,
     sa.Column("id", sa.Integer, primary_key=True),
-    sa.Column("parent_id", sa.Integer, ForeignKey("vimtool_todos.id"), nullable=True),
+    sa.Column("parent_id", sa.Integer, ForeignKey("vimania_todos.id"), nullable=True),
     sa.Column("todo", sa.String(), nullable=False, unique=True),
     sa.Column("metadata", sa.String(), default=""),
     sa.Column("tags", sa.String(), default=""),
@@ -68,7 +68,7 @@ class DAL:
     is_simulated_environment: bool
 
     def __init__(self, env_config: "Environment"):
-        self.bm_db_url = env_config.tw_vimtool_db_url
+        self.bm_db_url = env_config.tw_vimania_db_url
         _log.debug(f"Using database: {self.bm_db_url}")
 
         # aiosql setup
@@ -126,7 +126,7 @@ class DAL:
     def delete_todo(self, id: int) -> int:
         query = """
             -- name: delete_todo<!
-            delete from vimtool_todos where id = :id
+            delete from vimania_todos where id = :id
             returning *;
         """
         queries = aiosql.from_str(query, "sqlite3")
@@ -138,7 +138,7 @@ class DAL:
         query = """
             -- name: insert_todo<!
             -- record_class: Todo
-            insert into vimtool_todos (parent_id, todo, metadata, tags, desc, path, flags, created_at)
+            insert into vimania_todos (parent_id, todo, metadata, tags, desc, path, flags, created_at)
             values (:parent_id, :todo, :metadata, :tags, :desc, :path, :flags, :created_at)
             returning *;
         """
@@ -160,7 +160,7 @@ class DAL:
     def update_todo(self, todo: Todo) -> int:
         query = """
             -- name: update_todo<!
-            update vimtool_todos
+            update vimania_todos
             set parent_id = :parent_id, todo = :todo, metadata = :metadata, tags = :tags, flags = :flags, desc = :desc, path = :path 
             where id = :id
             returning *;
@@ -189,7 +189,7 @@ class DAL:
             -- name: get_todo_by_id^
             -- record_class: Todo
             select *
-            from vimtool_todos
+            from vimania_todos
             where id = :id;
             """
         queries = aiosql.from_str(query, "sqlite3", record_classes=self.record_classes)
@@ -207,8 +207,8 @@ class DAL:
                 -- name: get_todos
                 -- record_class: Todo
                 select *
-                from vimtool_todos_fts
-                where vimtool_todos_fts match :fts_query
+                from vimania_todos_fts
+                where vimania_todos_fts match :fts_query
                 order by rank;
             """
             queries = aiosql.from_str(
@@ -220,7 +220,7 @@ class DAL:
                 -- name: get_todos
                 -- record_class: Todo
                 select *
-                from vimtool_todos_fts
+                from vimania_todos_fts
                 order by rank;
             """
             queries = aiosql.from_str(
@@ -240,7 +240,7 @@ class DAL:
             -- name: get_related_tags
             with RECURSIVE split(tags, rest) AS (
                 SELECT '', tags || ','
-                FROM vimtool_todos
+                FROM vimania_todos
                 WHERE tags LIKE :tag_query
                 -- WHERE tags LIKE '%,ccc,%'
                 UNION ALL
@@ -267,7 +267,7 @@ class DAL:
             -- name: get_all_tags
             with RECURSIVE split(tags, rest) AS (
                 SELECT '', tags || ','
-                FROM vimtool_todos
+                FROM vimania_todos
                 UNION ALL
                 SELECT substr(rest, 0, instr(rest, ',')),
                        substr(rest, instr(rest, ',') + 1)

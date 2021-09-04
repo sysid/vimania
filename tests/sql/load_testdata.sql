@@ -1,6 +1,6 @@
 -- name: load_testdata!
-insert into main.vimtool_todos (parent_id, todo, metadata, tags, "desc", path, flags)
-values (null, 'todo 1', 'TEST: entry for bookmark xxxxx', ',ccc,vimtool,yyy,', 'nice description b', "filepath", 1),
+insert into main.vimania_todos (parent_id, todo, metadata, tags, "desc", path, flags)
+values (null, 'todo 1', 'TEST: entry for bookmark xxxxx', ',ccc,vimania,yyy,', 'nice description b', "filepath", 1),
        (null, 'todo 2', 'TEST: entry for bookmark bbbb', ',aaa,bbb,', 'nice description a', "filepath", 0),
        (null, 'todo 3', 'bla blub', ',aaa,bbb,', 'nice description a2', "filepath", 1),
        (3, 'todo 4', 'bla blub2', ',aaa,bbb,ccc,', 'nice description a3', "filepath", 1),

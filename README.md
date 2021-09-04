@@ -1,4 +1,4 @@
-# vimtool
+# vimania
 Based on:
 
 1. Install [vim-textobj-user](https://github.com/kana/vim-textobj-user)
@@ -12,12 +12,12 @@ Based on:
 
 ## Patterns added:
 `file://`: allow all characters in uri, resolves relative paths with environment variables
-`vim::`: call `VimtoolEdit`
+`vim::`: call `VimaniaEdit`
 
 ## Operations
 ### Reset database
 Rrequires to clean existing markdown files with todos:   
-1. Reset DB: `cd pythonx/vimtool/db; rm todos.db; alembic upgrade head`
+1. Reset DB: `cd pythonx/vimania/db; rm todos.db; alembic upgrade head`
 2. Clean up existing markdown files:
    - find all affected markdown files: `rg -t md -- '-%\d+%'`
    - edit the markdown files and remove the allocated database-id to allow for re-init: `sed -i 's/-%[0-9]\+%/-/' todo.md`
@@ -52,7 +52,7 @@ endif
 
 if g:twvim_debug | echom "-D- vim-textobj-uri is installed, registering patterns." | endif
 " example pattern
-URIPatternAdd! vimtool://\%(\([^()]\+\)\) :silent\ !open\ "%s"
+URIPatternAdd! vimania://\%(\([^()]\+\)\) :silent\ !open\ "%s"
 ```
 
 
@@ -63,7 +63,7 @@ todos link check from DB
 - [-] documentation
 - [x] exclude code fences (todos would be evaluated)
 - [-] hierarchical todos
-- [ ] vimtool:: protocol needs clarification vs. file://
+- [ ] vimania:: protocol needs clarification vs. file://
 
 ## Workflow:
 1. use Ultisnip to insert 'todo' effectively in the rigth format
@@ -76,5 +76,5 @@ Regex: https://regex101.com/r/LpSX0i/1
 
 ### Manual todo testing
 reset db: `alembic upgrade head`
-TW_VIMTOOL_DB_URL="sqlite:///$PROJ_DIR/pythonx/vimtool/db/todos.db" vim tests/todo.md# vimtool
+TW_VIMANIA_DB_URL="sqlite:///$PROJ_DIR/pythonx/vimania/db/todos.db" vim tests/todo.md# vimania
 # vimania

@@ -4,7 +4,7 @@ BUILDDIR      = build
 TESTDIR       = tests
 MAKE          = make
 
-VERSION       = $(shell cat pythonx/vimtool/__init__.py | grep __version__ | sed "s/__version__ = //" | sed "s/'//g")
+VERSION       = $(shell cat pythonx/vimania/__init__.py | grep __version__ | sed "s/__version__ = //" | sed "s/'//g")
 
 .DEFAULT_GOAL := help
 
@@ -22,11 +22,11 @@ all: clean build upload tag
 
 .PHONY: test
 test:  ## run tests
-	TW_VIMTOOL_DB_URL=sqlite:///tests/data/vimtool_todos_test.db python -m py.test tests -vv
+	TW_VIMANIA_DB_URL=sqlite:///tests/data/vimania_todos_test.db python -m py.test tests -vv
 
 .PHONY: test-vim
 test-vim:  ## run tests-vim
-	pushd tests; ./run_test.sh test_textobj_uri.vader; ./run_test.sh test_vimtool_vim.vader; popd
+	pushd tests; ./run_test.sh test_textobj_uri.vader; ./run_test.sh test_vimania_vim.vader; popd
 
 #.PHONY: coverage
 #coverage:  ## Run tests with coverage
@@ -76,11 +76,11 @@ tag:  ## tag with VERSION
 black:  ## format with black
 	@echo "Formatting with black"
 	#black --check --verbose --exclude="twbm/buku.py" .
-	black pythonx/vimtool
+	black pythonx/vimania
 
 .PHONY: install
 install:  ## pipx install
-	pipx install $(HOME)/dev/vim/vimtool/pythonx
+	pipx install $(HOME)/dev/vim/vimania/pythonx
 
 .PHONY: uninstall
 uninstall:  ## pipx uninstall

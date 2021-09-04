@@ -1,8 +1,8 @@
 import logging
 from typing import Sequence
 
-from vimtool.db.dal import Todo, DAL
-from vimtool.environment import config
+from vimania.db.dal import Todo, DAL
+from vimania.environment import config
 
 _log = logging.getLogger(__name__)
 

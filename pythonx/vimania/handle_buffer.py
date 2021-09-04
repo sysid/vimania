@@ -22,7 +22,7 @@
 - [b] xxxx: invalid
 [ ] xxxx: invalid
     - [ ] todoa ends () hiere.
-- vimtoolx: invalid
+- vimaniax: invalid
 - [x] this is a text describing a task
 - [x] this is a text describing a task %%123%%
 - %123% [x] this is a text describing a task
@@ -38,8 +38,8 @@ from pathlib import Path
 from typing import Match, List, Optional
 
 from pydantic import BaseModel
-from vimtool.db.dal import TodoStatus, Todo, DAL
-from vimtool.environment import config
+from vimania.db.dal import TodoStatus, Todo, DAL
+from vimania.environment import config
 
 _log = logging.getLogger("xxx-plugin.handle_buffer")
 ROOT_DIR = Path(__file__).parent.absolute()

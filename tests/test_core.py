@@ -1,38 +1,38 @@
 import pytest
 
-from vimtool.core import do_vimtool, get_mime_type, create_todo_, parse_todo_str
+from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str
 
 
 # @pytest.mark.skip("Interactive test.")
 @pytest.mark.parametrize(
     ("uri",),
     (
-        # ("/Users/Q187392/dev/vim/vimtool/tests/data/vimtool.pdf",),
-        # ("$HOME/dev/vim/vimtool/tests/data/vimtool.pdf",),
-        # ("/Users/Q187392/dev/vim/vimtool/tests/data///vimtool.pdf",),
+        # ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",),
+        # ("$HOME/dev/vim/vimania/tests/data/vimania.pdf",),
+        # ("/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",),
         # ("https://www.google.com",),
         # ("./tests/data/tsl-handshake.png",),
         ("./tests/data/test.md",),
     ),
 )
-def test_do_vimtool(uri):
-    # arg = "$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf"
-    do_vimtool(uri)
+def test_do_vimania(uri):
+    # arg = "$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf"
+    do_vimania(uri)
 
 
 @pytest.mark.parametrize(
     ("uri", "result"),
     (
-        ("/Users/Q187392/dev/vim/vimtool/tests/data/vimtool.pdf", "application/pdf"),
-        ("/Users/Q187392/dev/vim/vimtool/tests/data/x.html", "text/html"),
-        ("/Users/Q187392/dev/vim/vimtool/tests/data/tsl-handshake.png", "image/png"),
-        ("/Users/Q187392/dev/vim/vimtool/tests/data/test.md", "text/plain"),
+        ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf", "application/pdf"),
+        ("/Users/Q187392/dev/vim/vimania/tests/data/x.html", "text/html"),
+        ("/Users/Q187392/dev/vim/vimania/tests/data/tsl-handshake.png", "image/png"),
+        ("/Users/Q187392/dev/vim/vimania/tests/data/test.md", "text/plain"),
         ("https://www.google.com", "application/x-msdownload"),
         ("mailto:xxx@bla.com", "application/x-msdownload"),
     ),
 )
 def test_get_mimetype(uri, result):
-    # arg = "$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf"
+    # arg = "$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf"
     print(get_mime_type(uri))
     assert get_mime_type(uri) == result
 

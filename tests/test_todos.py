@@ -1,6 +1,6 @@
 import pytest
 
-from vimtool.todos import (
+from vimania.todos import (
     Todos,
     parse_tags,
     check_tags,
@@ -24,9 +24,9 @@ from vimtool.todos import (
     (
         ("", None, None, None, None, "aaa,bbb", 2),
         ("xxxxx", None, None, None, None, None, 1),
-        ("xxxxx", "ccc,vimtool,yyy", None, None, None, None, 1),
-        ("xxxxx", "vimtool,yyy", None, None, None, None, 1),
-        ("xxxxx", "vimtool,yyy", "not1,not2", "vimtool", None, "ccc,vimtool,yyy", 1),
+        ("xxxxx", "ccc,vimania,yyy", None, None, None, None, 1),
+        ("xxxxx", "vimania,yyy", None, None, None, None, 1),
+        ("xxxxx", "vimania,yyy", "not1,not2", "vimania", None, "ccc,vimania,yyy", 1),
         ("xxxxx", "wrong", None, None, None, None, 0),
     ),
 )
@@ -67,9 +67,9 @@ def test_parse_tags(tags, result):
     ("tags", "result"),
     (
         (("a", "b"), ["a", "b"]),
-        (("vimtool", "yyy"), []),
+        (("vimania", "yyy"), []),
         (
-            ("vimtool", "yyy", "zzz"),
+            ("vimania", "yyy", "zzz"),
             [
                 "zzz",
             ],
@@ -122,7 +122,7 @@ def test_match_all(dal):
 
 def test_match_any(dal):
     todos = dal.get_todos(fts_query="")
-    tags = ("aaa", "vimtool")
+    tags = ("aaa", "vimania")
     # filtered = [todo for todo in todos if 'web' in todo.tags.split(',')]
     filtered = [todo for todo in todos if match_any_tag(tags, todo.split_tags)]
     assert len(filtered) >= 4
@@ -135,7 +135,7 @@ def test_match_any(dal):
         (("b", "a"), ["a", "b"]),
         (("a", ",b"), ["a", "b"]),
         (("a,", ",b"), ["a", "b"]),
-        (("a,vimtool", ",b"), ["a", "b", "vimtool"]),
+        (("a,vimania", ",b"), ["a", "b", "vimania"]),
         ((), []),
         (("a,", ",b", "A"), ["a", "b"]),
         (("a,A", ",b", "A"), ["a", "b"]),

@@ -1,19 +1,19 @@
 select *
-from vimtool_todos
+from vimania_todos
 where todo == 'todo 10'
 ;
 
 with recursive tds_children as (
     select id, parent_id, todo, 1 as depth
-    from vimtool_todos
+    from vimania_todos
     where id == 3
       and flags <= 4
     union all
-    select vimtool_todos.id, vimtool_todos.parent_id, vimtool_todos.todo, tds_children.depth + 1
-    from vimtool_todos
+    select vimania_todos.id, vimania_todos.parent_id, vimania_todos.todo, tds_children.depth + 1
+    from vimania_todos
              join tds_children
-    where vimtool_todos.parent_id == tds_children.id
-      and vimtool_todos.flags < 4
+    where vimania_todos.parent_id == tds_children.id
+      and vimania_todos.flags < 4
 )
 select *
 from tds_children
@@ -22,15 +22,15 @@ from tds_children
 
 with recursive tds_parents as (
     select id, parent_id, todo, 0 as depth
-    from vimtool_todos
+    from vimania_todos
     where id = 3
       and flags <= 4
     union all
-    select vimtool_todos.id, vimtool_todos.parent_id, vimtool_todos.todo, tds_parents.depth - 1
-    from vimtool_todos
+    select vimania_todos.id, vimania_todos.parent_id, vimania_todos.todo, tds_parents.depth - 1
+    from vimania_todos
              join tds_parents
-    where vimtool_todos.id == tds_parents.parent_id
-      and vimtool_todos.flags < 4
+    where vimania_todos.id == tds_parents.parent_id
+      and vimania_todos.flags < 4
 )
 select *
 from tds_parents
@@ -51,25 +51,25 @@ with recursive tds_parents as (
            last_update_ts,
            created_at,
            0 as depth
-    from vimtool_todos
+    from vimania_todos
     where todo = 'this is a text describing a task2'
       and flags < 4
     union all
-    select vimtool_todos.id,
-           vimtool_todos.parent_id,
-           vimtool_todos.todo,
-           vimtool_todos.metadata,
-           vimtool_todos.tags,
-           vimtool_todos.desc,
-           vimtool_todos.path,
-           vimtool_todos.flags,
-           vimtool_todos.last_update_ts,
-           vimtool_todos.created_at,
+    select vimania_todos.id,
+           vimania_todos.parent_id,
+           vimania_todos.todo,
+           vimania_todos.metadata,
+           vimania_todos.tags,
+           vimania_todos.desc,
+           vimania_todos.path,
+           vimania_todos.flags,
+           vimania_todos.last_update_ts,
+           vimania_todos.created_at,
            tds_parents.depth - 1
-    from vimtool_todos
+    from vimania_todos
              join tds_parents
-    where vimtool_todos.id == tds_parents.parent_id
-      and vimtool_todos.flags < 4
+    where vimania_todos.id == tds_parents.parent_id
+      and vimania_todos.flags < 4
 )
 select *
 from tds_parents
@@ -79,15 +79,15 @@ from tds_parents
 -- get depth
 with recursive tds_parents as (
     select id, parent_id, todo, 0 as depth
-    from vimtool_todos
+    from vimania_todos
     where todo == 'this is a text describing a task2'
       and flags <= 4
     union all
-    select vimtool_todos.id, vimtool_todos.parent_id, vimtool_todos.todo, tds_parents.depth - 1
-    from vimtool_todos
+    select vimania_todos.id, vimania_todos.parent_id, vimania_todos.todo, tds_parents.depth - 1
+    from vimania_todos
              join tds_parents
-    where vimtool_todos.id == tds_parents.parent_id
-      and vimtool_todos.flags < 4
+    where vimania_todos.id == tds_parents.parent_id
+      and vimania_todos.flags < 4
 )
 select *
 from tds_parents
@@ -95,5 +95,5 @@ from tds_parents
 -- limit 1
 ;
 
-select * from vimtool_todos
+select * from vimania_todos
 where todo = 'this is a text describing a task2'

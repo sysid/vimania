@@ -1,7 +1,7 @@
 import pytest
 from typer.testing import CliRunner
 
-from vimtool.cli import app
+from vimania.cli import app
 
 runner = CliRunner()
 
@@ -107,6 +107,6 @@ class TestTags:
         assert result.exit_code == 0
 
     def test_tags_related(self, dal):
-        result = runner.invoke(app, ["tags", "-v", "vimtool"])
+        result = runner.invoke(app, ["tags", "-v", "vimania"])
         print(result.stdout)
         assert result.exit_code == 0

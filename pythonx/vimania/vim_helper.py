@@ -18,8 +18,8 @@ except:
     # print("No vim module available outside vim")
     pass
 
-from vimtool.compatibility import byte2col, col2byte
-from vimtool.position import Position
+from vimania.compatibility import byte2col, col2byte
+from vimania.position import Position
 
 
 class VimBuffer:

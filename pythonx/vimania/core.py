@@ -8,14 +8,14 @@ from datetime import datetime
 from pathlib import Path
 from typing import Sequence
 
-from vimtool.db.dal import DAL, TodoStatus, Todo
-from vimtool.environment import config
-from vimtool.handle_buffer import VimTodo
-from vimtool.rifle.rifle import Rifle
+from vimania.db.dal import DAL, TodoStatus, Todo
+from vimania.environment import config
+from vimania.handle_buffer import VimTodo
+from vimania.rifle.rifle import Rifle
 
 """ Implementation independent of vim """
 
-_log = logging.getLogger("vimtool-plugin.core")
+_log = logging.getLogger("vimania-plugin.core")
 ROOT_DIR = Path(__file__).parent.absolute()
 
 if sys.platform.startswith("win32"):
@@ -45,7 +45,7 @@ def is_text(uri: str) -> bool:
     return get_mime_type(uri).startswith("text")
 
 
-def do_vimtool(args: str):
+def do_vimania(args: str):
     if OS_OPEN is None:
         _log.error(f"Unknown OS architecture: {sys.platform}")
         return
@@ -145,5 +145,5 @@ def load_todos_() -> Sequence[str]:
 
 
 if __name__ == "__main__":
-    arg = "$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf"
-    do_vimtool("my-args-given")
+    arg = "$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf"
+    do_vimania("my-args-given")

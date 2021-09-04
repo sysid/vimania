@@ -47,9 +47,9 @@ let g:textobj_uri_patterns = {
       \ '\%(http\|https\|ftp\):\/\/[a-zA-Z0-9:@_-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*\%(:\d\+\)\?\%(\/[a-zA-Z0-9_\/.\-+%#?&=;@$,!''*~]*\)\?': ':call TextobjUriOpen()',
       \ 'mailto:[a-zA-Z0-9._]\+@[a-zA-Z0-9-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*': ':call TextobjUriOpen()',
       \ 'file://\%(\([^)]\+\)\)': ':call TextobjUriOpen()',
-      \ 'xxx::\%(\([^)]\+\)\)': ':call Vimtool(g:textobj_uri)',
-      \ 'vim::\%(\([^)]\+\)\)': ':call VimtoolEdit(g:textobj_uri)',
-      \ 'todo::\%(\([^)]\+\)\)': ':call VimtoolTodo(g:textobj_uri, expand("%:p"))',
+      \ 'xxx::\%(\([^)]\+\)\)': ':call Vimania(g:textobj_uri)',
+      \ 'vim::\%(\([^)]\+\)\)': ':call VimaniaEdit(g:textobj_uri)',
+      \ 'todo::\%(\([^)]\+\)\)': ':call VimaniaTodo(g:textobj_uri, expand("%:p"))',
       \ }
 
 let g:textobj_uri_search_timeout = 100

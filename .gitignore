@@ -1,12 +1,11 @@
 pythonx/*
 !pythonx/README.md
-!pythonx/vimtool
 !pythonx/vimania
 !pythonx/setup.py
 !pythonx/setup.cfg
-tests/data/vimtool_todos_test.db
+tests/data/vimania_todos_test.db
 tests/data/vader.db
-pythonx/vimtool/db/vimtool.db
+pythonx/vimania/db/vimania.db
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

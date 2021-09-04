@@ -6,11 +6,11 @@ from typing import Sequence
 
 import typer
 
-from vimtool.db.dal import DAL, Todo, TodoStatus
-from vimtool.environment import config
-from vimtool.todos import Todos
+from vimania.db.dal import DAL, Todo, TodoStatus
+from vimania.environment import config
+from vimania.todos import Todos
 
-_log = logging.getLogger("vimtool-plugin.cli")
+_log = logging.getLogger("vimania-plugin.cli")
 
 if _log.handlers == []:  # avoid adding multiple handler via re-sourcing
     handler = logging.StreamHandler(sys.stdout)
@@ -189,7 +189,7 @@ def search(
             h:              help
     """
     if verbose:
-        typer.echo(f"Using DB: {config.tw_vimtool_db_url}", err=True)
+        typer.echo(f"Using DB: {config.tw_vimania_db_url}", err=True)
 
     todos = Todos(fts_query=fts_query).filter(
         tags_all, tags_all_not, tags_any, tags_any_not, tags_exact
@@ -231,7 +231,7 @@ def update(
         twtodo search xxxxx | twtodo update -t <tag>
     """
     if verbose:
-        typer.echo(f"Using DB: {config.tw_vimtool_db_url}", err=True)
+        typer.echo(f"Using DB: {config.tw_vimania_db_url}", err=True)
     if tags is not None:
         tags = tags.lower().replace(" ", "").split(",")
     if tags_not is not None:
@@ -270,7 +270,7 @@ def open(
         twtodo search xxxxx | twtodo open
     """
     if verbose:
-        typer.echo(f"Using DB: {config.tw_vimtool_db_url}", err=True)
+        typer.echo(f"Using DB: {config.tw_vimania_db_url}", err=True)
 
     # Gotcha: running from IDE looks like pipe
     is_pipe = not isatty(sys.stdin.fileno())
@@ -300,7 +300,7 @@ def show(
     verbose: bool = typer.Option(False, "-v", "--verbose"),
 ):
     if verbose:
-        typer.echo(f"Using DB: {config.tw_vimtool_db_url}", err=True)
+        typer.echo(f"Using DB: {config.tw_vimania_db_url}", err=True)
 
     # _ = BukuDb(dbfile=config.dbfile).print_rec(index=id_)
     with DAL(env_config=config) as dal:
@@ -323,7 +323,7 @@ def tags(
     With tag as parameter: Show related tags, i.e. tags which are used in combination with tag.
     """
     if verbose:
-        typer.echo(f"Using DB: {config.tw_vimtool_db_url}", err=True)
+        typer.echo(f"Using DB: {config.tw_vimania_db_url}", err=True)
 
     if tag is not None:
         tag = tag.strip(",").strip().lower()

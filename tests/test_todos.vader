@@ -14,7 +14,7 @@ Given (test-buffer text):
   - %%123%% [x] this does not exist in db and should be deleted
 
 Execute(handle_todos):
-  VimtoolHandleTodos
+  VimaniaHandleTodos
 Expect (todos with links):
   - %%1%% [ ] bla bub ()
   - [b] xxxx

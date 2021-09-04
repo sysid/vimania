@@ -1,7 +1,7 @@
 import pytest
 
-from vimtool.db.dal import Todo, DAL, metadata
-from vimtool.environment import config
+from vimania.db.dal import Todo, DAL, metadata
+from vimania.environment import config
 
 
 @pytest.fixture()
@@ -43,7 +43,7 @@ def test_get_xxxxx(dal):
     # this is the testing entry in bm.db
     bms = dal.get_todos(fts_query="xxxxx")
     assert len(bms) == 1
-    assert bms[0].tags == ",ccc,vimtool,yyy,"
+    assert bms[0].tags == ",ccc,vimania,yyy,"
 
 
 def test_get_duplicates(dal):
@@ -55,7 +55,7 @@ def test_get_duplicates(dal):
 
 def test_update_bm(dal):
     todo = dal.get_todos(fts_query="xxxxx")[0]
-    assert todo.tags == ",ccc,vimtool,yyy,"
+    assert todo.tags == ",ccc,vimania,yyy,"
 
     todo.tags = ",bla,"
     result = dal.update_todo(todo)
@@ -98,7 +98,7 @@ def test_split_tags(dal):
 
 
 @pytest.mark.parametrize(
-    ("tag", "result"), (("ccc", ["aaa", "bbb", "ccc", "vimtool", "yyy"]),)
+    ("tag", "result"), (("ccc", ["aaa", "bbb", "ccc", "vimania", "yyy"]),)
 )
 def test_get_related_tags(dal, tag, result):
     tags = dal.get_related_tags(tag=tag)
@@ -111,7 +111,7 @@ def test_get_related_tags(dal, tag, result):
 def test_get_all_tags(dal):
     tags = dal.get_all_tags()
     print(tags)
-    result = ["aaa", "bbb", "ccc", "vimtool", "yyy"]
+    result = ["aaa", "bbb", "ccc", "vimania", "yyy"]
     assert tags == result
     assert len(tags) >= len(result)
 

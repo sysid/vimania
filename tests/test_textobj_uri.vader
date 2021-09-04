@@ -9,7 +9,7 @@ Before:
 
 # Successfull Tests
 Given (text-with-links ):
-  file://$HOME/dev/vim/vimtool/tests/data/vimtool.pdf
+  file://$HOME/dev/vim/vimania/tests/data/vimania.pdf
 Do ():
   go
 Then ():
@@ -19,16 +19,16 @@ Then ():
   Assert len(getqflist()) == 1
 
 "Given (fullpath):
-"  file:///Users/Q187392/dev/vim/vimtool/tests/data/vimtool.pdf
+"  file:///Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf
 "Given (blank):
-"  vimtool::https:// $HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf
+"  vimania::https:// $HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf
 "Given (double slash):
-"  vimtool::https://$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf
+"  vimania::https://$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf
 "Given (apostrophy):
-"  "vimtool::.....://$HOME/dev/vim/vim-textobj-uri/test/vimtool//vimtool.pdf"
+"  "vimania::.....://$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf"
 
 "Given (markdown preview):
-"  vimtool::/Users/Q187392/dev/vim/vimtool/tests/data/test.md
+"  vimania::/Users/Q187392/dev/vim/vimania/tests/data/test.md
 "Do (should open im mareke2):
 "  go
 "Then ():
@@ -38,7 +38,7 @@ Then ():
 "  Assert len(getqflist()) == 1
 
 Given (markdown edit):
-  vim::/Users/Q187392/dev/vim/vimtool/tests/data/test.md
+  vim::/Users/Q187392/dev/vim/vimania/tests/data/test.md
 Do (open edit in vim):
   go
 Then ():
@@ -49,7 +49,7 @@ Then ():
 
 
 Given (markdown edit):
-  todo::- [-] bla blub vimtool now 123
+  todo::- [-] bla blub vimania now 123
 Do (open edit in vim):
   go
 Then ():
@@ -60,8 +60,8 @@ Then ():
 
 
 # Failing Tests
-Given (should not work: vimtool://):
-  vimtool://$HOME/dev/vim/vimtool/tests/data/vimtool.pdf
+Given (should not work: vimania://):
+  vimania://$HOME/dev/vim/vimania/tests/data/vimania.pdf
 Do (invalid URI):
   go
 Then ():
