@@ -1,15 +1,30 @@
 #!/usr/bin/env bash
 #vim '+Vader!*' && echo Success || echo Failure' && echo Success || echo Failure
 
-source ~/dev/binx/profile/sane_bash.sh
+source ~/dev/binx/profile/sane_fn.sh
 
-cp -v data/todos.db.empty data/vader.db
+prep-db() {
+  echo "-M- Creating vader DB: $(pwd)"
+  twpushd "$PROJ_DIR/pythonx/vimania/db"
+  [[ -f todos.db  ]] && rm -v todos.db
+  alembic upgrade head
+  readlink -f todos.db
+  cp -v todos.db "$PROJ_DIR/tests/data/vader.db"
+  twpopd
+}
+
+#cp -v data/todos.db.empty data/vader.db
 
 if [ -z "$1" ]; then
     echo "-E- no testfiles given."
     echo "runall: $0 '*'"
     exit 1
 fi
+
+################################################################################
+# main
+################################################################################
+prep-db
 
 TW_VIMANIA_DB_URL=sqlite:///data/vader.db vim -Nu <(cat << EOF
 filetype off
