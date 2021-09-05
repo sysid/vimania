@@ -3,6 +3,7 @@ SOURCEDIR     = source
 BUILDDIR      = build
 TESTDIR       = tests
 MAKE          = make
+PACKAGE		  = 'vimania'
 
 VERSION       = $(shell cat pythonx/vimania/__init__.py | grep __version__ | sed "s/__version__ = //" | sed "s/'//g")
 
@@ -64,7 +65,7 @@ clean-vim:  ## clean pythonx directory
 
 .PHONY: build-vim
 build-vim:  ## copy all python packages into pythonx
-	./scripts/cp_venv.sh
+	./scripts/cp_venv.sh dev
 
 .PHONY: tag
 tag:  ## tag with VERSION
@@ -84,7 +85,7 @@ install:  ## pipx install
 
 .PHONY: uninstall
 uninstall:  ## pipx uninstall
-	pipx uninstall twtodo
+	pipx uninstall vimania
 
 .PHONY: bump-minor
 bump-minor:  ## bump-minor
