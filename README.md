@@ -27,6 +27,10 @@ snippet uri "link/uri for Vimania"
 endsnippet
 ```
 
+### CLI for todo management outside of VIM
+
+
+
 ## Installation
 1. Vimenia uses [vim-textobj-uri](https://github.com/jceb/vim-textobj-uri) for URI identification, so install via Plugin manager.
 2. Vimenia: todo installation method
@@ -85,9 +89,16 @@ After saving the file, the identifiers have been added and the items are saved i
 Markdown content other than todo items can be changed arbitrarily, of course.
 
 ### Fixing inconsistent state
-#### Fixing inconsistency: entry already in DB
-- find the id in the DB
-- add the id to the corresponding markdown item: `-%99% [ ] markdown item`
+Todos in markdown can get out of sync if updates are made outside of vim, e.g. with another text editor. Don't worry,
+this can be fixed easily.
+
+#### entry already in DB
+- find the corresponding id in the DB
+- add the id to the markdown item: `-%99% [ ] markdown item`
+
+### entry in DB but not in markdown
+- you can safely delete the entry in the DB, unless you maintain on purpose todo items in the DB which do not have a counterpart
+  in a markdown (I do).
 
 #### Resetting everything
 Deleting/adding todo items outside the control of Vimania can cause an inconsistent state between the database on the markdown files.
