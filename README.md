@@ -14,6 +14,7 @@ Key features are:
 - no more missing, obsolete or duplicated todos
 - Synchronization of todo status between Markdown files and database
 - todo lists within code fences are ignored
+- DB entry has a link to the task's source file, so by looking in the DB any todo can be located.
 
 ### Insert URIs and Todos convenience method:
 I recommend configuring two [UltiSnips](https://github.com/SirVer/ultisnips) snippets:
@@ -70,7 +71,9 @@ available for future features.
 - On saving Vimania scans the markdown and saves new or updated todos to the database
 - Vimania inserts a DB identifier ('%99%') into the markdown item in order to establish a durable link between DB and markdown item
 - The identifier is hidden via VIM's `conceal` feature
-- todo items are deleted by typing `dd` in normal mode. This triggers a DB update
+- todo items are deleted by deleting (`dd`) in normal mode. This triggers a DB update
+- todo items deleted by `dd` in visual mode are NOT delete from DB. This is useful to move tasks from one file to another.
+  Otherwise, you always can move an item by just deleting it in one file and paste in to another file AND then remove the database id ('%99%'). So Vimania kust creates a new entry/link.
 
 ### Example todo file
 After saving the file, the identifiers have been added and the items are saved in DB:

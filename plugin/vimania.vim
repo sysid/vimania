@@ -10,8 +10,12 @@ augroup Vimania
  autocmd BufRead *.md call VimaniaHandleTodos("read")
  autocmd BufWritePre *.md call VimaniaHandleTodos("write")
  "autocmd TextYankPost *.md echom v:event
+
+ " line must have todo-id: %99%
+ " event must be dlete: d
+ " event must not be visual (visual: do not delete in DB, useful for moving tasks)
  autocmd TextYankPost *.md
-    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? '%\d\+%' && v:event['operator'] == 'd'
+    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? '%\d\+%' && v:event['operator'] == 'd' && ! v:event['visual']
     \ | call VimaniaDeleteTodo(v:event['regcontents'][0], expand('%:p'))
     \ | endif
 augroup END
