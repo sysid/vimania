@@ -63,7 +63,7 @@ def do_vimania(args: str):
         _log.debug(f"Http Link")
         p = args
     # next elif needed to group all possible pathes
-    elif args[0] in "/.~$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+    elif args[0] in "/.~$0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
         if args.startswith("/"):
             _log.debug(f"Absolute path.")
             p = Path(args)
@@ -86,8 +86,8 @@ def do_vimania(args: str):
             _log.error(f"{p} does not exists.")
             raise VimaniaException(f"{p} does not exists")
     else:
-        _log.warning(f"Unknown protocol: {args=}")
-        return
+        _log.error(f"Unknown protocol: {args=}")
+        raise VimaniaException(f"Unknown protocol: {args=}")
 
     _log.info(f"Opening: {p}")
     subprocess.run([OS_OPEN, p])
