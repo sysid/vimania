@@ -6,18 +6,20 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Sequence
+from typing import Sequence, Tuple
 
 from vimania.db.dal import DAL, TodoStatus, Todo
 from vimania.environment import config
+from vimania.exception import VimaniaException
 from vimania.handle_buffer import VimTodo
 from vimania.rifle.rifle import Rifle
-from vimania.exception import VimaniaException
 
 """ Implementation independent of vim """
 
 _log = logging.getLogger("vimania-plugin.core")
 ROOT_DIR = Path(__file__).parent.absolute()
+
+pattern = re.compile(r""".*vm::(.*)\)+""")
 
 if sys.platform.startswith("win32"):
     OS_OPEN = "explorer.exe"
@@ -90,6 +92,8 @@ def do_vimania(args: str):
         raise VimaniaException(f"Unknown protocol: {args=}")
 
     _log.info(f"Opening: {p}")
+    id_ = add_twbm(p)
+    _log.debug(f"twbm added: {id_}")
     subprocess.run([OS_OPEN, p])
 
 
@@ -145,6 +149,22 @@ def load_todos_() -> Sequence[str]:
             vtd.set_status(todo.flags)
             vtds.append(vtd)
     return [vtd.vim_line for vtd in vtds]
+
+
+def add_twbm(url: str) -> int:
+    _log.debug(f"Adding twbm: {url}")
+    raise NotImplementedError()
+    return -1
+
+
+def delete_twbm(line: str) -> Tuple[int, str]:
+    match = pattern.match(line)
+    if match is None:
+        _log.warning(f"Cannot extract url from: {line}")
+        raise VimaniaException(f"Cannot extract url from: {line}")
+    url = match.group(1)
+    _log.debug(f"Deleting twbm: {url}")
+    return -1, url
 
 
 if __name__ == "__main__":

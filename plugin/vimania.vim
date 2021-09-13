@@ -20,4 +20,10 @@ augroup Vimania
     \ | endif
 augroup END
 
+ autocmd TextYankPost *.md
+    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? 'vm::' && v:event['operator'] == 'd' && ! v:event['visual']
+    \ | call VimaniaDeleteTwbm(v:event['regcontents'][0])
+    \ | endif
+augroup END
+
 let g:loaded_vimania = 1

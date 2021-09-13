@@ -1,18 +1,18 @@
 import pytest
 
-from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str
+from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str, delete_twbm
 
 
 # @pytest.mark.skip("Interactive test.")
 @pytest.mark.parametrize(
     ("uri",),
     (
-        # ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",),
-        # ("$HOME/dev/vim/vimania/tests/data/vimania.pdf",),
-        # ("/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",),
-        # ("https://www.google.com",),
-        # ("./tests/data/tsl-handshake.png",),
-        ("./tests/data/test.md",),
+            # ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",),
+            # ("$HOME/dev/vim/vimania/tests/data/vimania.pdf",),
+            # ("/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",),
+            # ("https://www.google.com",),
+            # ("./tests/data/tsl-handshake.png",),
+            ("./tests/data/test.md",),
     ),
 )
 def test_do_vimania(uri):
@@ -23,12 +23,12 @@ def test_do_vimania(uri):
 @pytest.mark.parametrize(
     ("uri", "result"),
     (
-        ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf", "application/pdf"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/x.html", "text/html"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/tsl-handshake.png", "image/png"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/test.md", "text/plain"),
-        ("https://www.google.com", "application/x-msdownload"),
-        ("mailto:xxx@bla.com", "application/x-msdownload"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf", "application/pdf"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/x.html", "text/html"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/tsl-handshake.png", "image/png"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/test.md", "text/plain"),
+            ("https://www.google.com", "application/x-msdownload"),
+            ("mailto:xxx@bla.com", "application/x-msdownload"),
     ),
 )
 def test_get_mimetype(uri, result):
@@ -40,10 +40,10 @@ def test_get_mimetype(uri, result):
 @pytest.mark.parametrize(
     ("uri", "todo_status", "todo"),
     (
-        ("- [ ] bla blub", 0, "bla blub"),
-        ("- [-] bla blub", 1, "bla blub"),
-        ("- [x] bla blub", 2, "bla blub"),
-        ("- [X] bla blub", 2, "bla blub"),
+            ("- [ ] bla blub", 0, "bla blub"),
+            ("- [-] bla blub", 1, "bla blub"),
+            ("- [x] bla blub", 2, "bla blub"),
+            ("- [X] bla blub", 2, "bla blub"),
     ),
 )
 def test_parse_todo_str(uri, todo_status, todo):
@@ -76,3 +76,12 @@ def test_create_todo(uri, path, result):
 # )
 # def test_update_todo(uri, path, result):
 #     create_todo_(uri, path)  # TODO assert missing
+
+@pytest.mark.parametrize(
+    ("line", "result"),
+    (
+            ("[testuri](vm::http://www.test.org)", "http://www.test.org"),
+    )
+)
+def test_delete_twbm(line, result):
+    delete_twbm(line)

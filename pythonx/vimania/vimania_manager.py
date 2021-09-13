@@ -7,7 +7,7 @@ from pprint import pprint
 from typing import Dict, Tuple
 
 from vimania import vim_helper
-from vimania.core import do_vimania, create_todo_, load_todos_
+from vimania.core import do_vimania, create_todo_, load_todos_, delete_twbm
 from vimania.exception import VimaniaException
 from vimania.handle_buffer import handle_it, delete_todo_
 from vimania.vim_helper import feedkeys
@@ -187,10 +187,23 @@ class VimaniaManager:
         _log.debug(f"{args=}, {path=}")
         locals = VimaniaManager._get_locals()
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
-        assert isinstance(path, str), f"Error: input must be string, got {type(path)}."
         # id_ = create_todo_(args, path)
         id_ = delete_todo_(args, path)
         vim.command(f"echom 'deleted: {args} {id_=}'")
+
+    # https://github.com/vim/vim/issues/6017
+    @staticmethod
+    # @err_to_scratch_buffer
+    # @warn_to_scratch_buffer
+    def delete_twbm(args: str):
+        _log.debug(f"{args=}")
+        assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
+        try:
+            id_, url = delete_twbm(args)
+        except VimaniaException as e:
+            vim.command(f"echohl WarningMsg | echom 'Cannot extract url from: {args}' | echohl None")
+            return
+        vim.command(f"echom 'deleted twbm: {url} {id_=}'")
 
     @staticmethod
     @err_to_scratch_buffer

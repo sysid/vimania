@@ -123,4 +123,11 @@ endfunction
 command! -nargs=1 VimaniaDeleteTodo call VimaniaDeleteTodo(<f-args>, expand('%:p'))
 "noremap Q :VimaniaDeleteTodo - [ ] todo vimania<CR>
 
+function! VimaniaDeleteTwbm(args)
+  call TwDebug(printf("Vimania args: %s", a:args))
+  python3 xMgr.delete_twbm(vim.eval('a:args'))
+endfunction
+command! -nargs=1 VimaniaDeleteTwbm call VimaniaDeleteTwbm(<f-args>)
+"noremap Q :VimaniaDeleteTodo - [ ] todo vimania<CR>
+
 let g:twtodo_loaded = 1
