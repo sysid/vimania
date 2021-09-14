@@ -9,6 +9,7 @@ sqlalchemy = "*"
 typer = "*"
 pydantic = "*"
 alembic = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 pytest = "*"

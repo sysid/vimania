@@ -110,8 +110,9 @@ class VimaniaManager:
         _log.debug(f"{args=}")
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
 
-        out = do_vimania(args)
-        # out = vimania.convert(vim.current.line)
+        return_message = do_vimania(args)
+        if return_message != "":
+            vim.command(f"echom '{return_message}'")
 
     @staticmethod
     @err_to_scratch_buffer
@@ -191,7 +192,7 @@ class VimaniaManager:
         id_ = delete_todo_(args, path)
         vim.command(f"echom 'deleted: {args} {id_=}'")
 
-    # https://github.com/vim/vim/issues/6017
+    # https://github.com/vim/vim/issues/6017: cannot create error buffer
     @staticmethod
     # @err_to_scratch_buffer
     # @warn_to_scratch_buffer

@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Sequence, Tuple
 
+from vimania.buku import BukuDb
 from vimania.db.dal import DAL, TodoStatus, Todo
 from vimania.environment import config
 from vimania.exception import VimaniaException
@@ -48,8 +49,9 @@ def is_text(uri: str) -> bool:
     return get_mime_type(uri).startswith("text")
 
 
-def do_vimania(args: str):
+def do_vimania(args: str) -> str:
     """Handler for protocol URI calls"""
+    return_message = ""  # return message for vim: echom
     if OS_OPEN is None:
         _log.error(f"Unknown OS architecture: {sys.platform}")
         return
@@ -93,8 +95,11 @@ def do_vimania(args: str):
 
     _log.info(f"Opening: {p}")
     id_ = add_twbm(p)
+    if id_ == -1:
+        return_message = f"new added twbm url: {id_=}"
     _log.debug(f"twbm added: {id_}")
     subprocess.run([OS_OPEN, p])
+    return return_message
 
 
 def create_todo_(args: str, path: str) -> int:
@@ -152,9 +157,20 @@ def load_todos_() -> Sequence[str]:
 
 
 def add_twbm(url: str) -> int:
-    _log.debug(f"Adding twbm: {url}")
-    raise NotImplementedError()
-    return -1
+    id_ = BukuDb(dbfile=config.dbfile_twbm).add_rec(
+        url=url,
+        # title_in=title,
+        tags_in=",vimania,",
+        # desc=desc,
+        # immutable=0,
+        delay_commit=False,
+        # fetch=(not nofetch),
+    )
+    if id_ == -1:
+        # raise SystemError(f"Error adding {url=} to DB {config.dbfile_twbm}")
+        _log.error(f"Error adding {url=} to DB {config.dbfile_twbm}")  # TODO: buku.py error handling
+    _log.debug(f"Added twbm: {id_=} - {url} to DB {config.dbfile_twbm}")
+    return id_
 
 
 def delete_twbm(line: str) -> Tuple[int, str]:
@@ -162,9 +178,18 @@ def delete_twbm(line: str) -> Tuple[int, str]:
     if match is None:
         _log.warning(f"Cannot extract url from: {line}")
         raise VimaniaException(f"Cannot extract url from: {line}")
+
     url = match.group(1)
-    _log.debug(f"Deleting twbm: {url}")
-    return -1, url
+    id_ = BukuDb(dbfile=config.dbfile_twbm).get_rec_id(url=url)
+    if id_ == -1:
+        _log.info(f"{url=} not in DB {config.dbfile_twbm}")
+        url = ""
+    else:
+        _log.debug(f"Deleting twbm: {url}")
+        if not BukuDb(dbfile=config.dbfile_twbm).delete_rec(index=id_, delay_commit=False):
+            raise VimaniaException(f"Cannot delete {url=} from: {config.dbfile_twbm}")
+
+    return id_, url
 
 
 if __name__ == "__main__":

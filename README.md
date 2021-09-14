@@ -1,6 +1,10 @@
 # Vimania
 
-Vimania is a modern and extensible set of functions to be used within VIM and on the commandline. It is inspired by and recommends to use [UltiSnips](https://github.com/SirVer/ultisnips).
+Vimania is a modern and extensible set of functions to be used within VIM and on the commandline. 
+
+It is inspired by and recommends to use [UltiSnips](https://github.com/SirVer/ultisnips).
+
+It integrates seamless with bookmark manager [twbm](https://github.com/sysid/twbm).
 
 Key features are:
 
@@ -15,6 +19,13 @@ Key features are:
 - Synchronization of todo status between Markdown files and database
 - todo lists within code fences are ignored
 - DB entry has a link to the task's source file, so by looking in the DB any todo can be located.
+- Todos are removed from database when removed from markdown file with `dd`
+
+### URL management: `twbm` integration
+- If `twbm` is installed `Vimania` pushes URL's to the bookmark database transparently when opening
+  the bookmark with `go`.
+- Pushed bookmarks have the default tag `vimania` in the bookmarks db.
+- Bookmarks are removed from bookmarks database when removed from markdown file with `dd`
 
 ### Insert URIs and Todos convenience method:
 I recommend configuring two [UltiSnips](https://github.com/SirVer/ultisnips) snippets:
@@ -114,6 +125,8 @@ It is possible to re-synchronize the DB and the todo-lists by creating a new dat
 
 
 ## Development
+- `buku.py` needs to be copied from `twbm` package as it is used to push URLs to buku DB.
+
 ### Preparation
 - clear the `pythonx` directory from bundled libs: `make clean-vim`
 
