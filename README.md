@@ -173,6 +173,7 @@ todos link check from DB
 - hierarchical todos
 - use yes/no interaction with vim
 
+
 ### Manual todo testing
 reset db: `alembic upgrade head`
 # vimania

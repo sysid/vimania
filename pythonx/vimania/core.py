@@ -54,7 +54,7 @@ def do_vimania(args: str) -> str:
     return_message = ""  # return message for vim: echom
     if OS_OPEN is None:
         _log.error(f"Unknown OS architecture: {sys.platform}")
-        return
+        return ""
 
     if not isinstance(args, str):
         _log.error(f"wrong args type: {type(args)}")

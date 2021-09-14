@@ -5,3 +5,6 @@
 
 vm::http://www.vimania.tw
 vm::http://www.vimania.tw
+
+http://www.vimania.tw
+https://www.google.com
