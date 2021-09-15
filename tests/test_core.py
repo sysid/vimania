@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str, delete_twbm
@@ -81,7 +83,16 @@ def test_create_todo(uri, path, result):
     ("line", "result"),
     (
             ("[testuri](vm::http://www.test.org)", "http://www.test.org"),
+            ("asdf http://www.google.com asdf", "http://www.google.com"),
+            # ("balaser https://my.net asdf", ""),
+            # ("[testuri](vm::http://www.test.org) adf", ""),
+            # ("[testuri](vm::http://www.test.org)adf", ""),
+            # ("[testuri](vm::http://www.test.org#adf?asdf&xxxx aaaaaaa", ""),
     )
 )
-def test_delete_twbm(line, result):
-    delete_twbm(line)
+def test_delete_twbm(mocker, line, result):
+    spy = mocker.patch("vimania.core.BukuDb")
+    # delete_twbm(line)
+    re.compile(
+        r""".*(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&\/=]*)""").match(
+        "[testuri](vm::http://www.test.org)").group(1)

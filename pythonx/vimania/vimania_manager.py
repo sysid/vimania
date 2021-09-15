@@ -192,8 +192,8 @@ class VimaniaManager:
         id_ = delete_todo_(args, path)
         vim.command(f"echom 'deleted: {args} {id_=}'")
 
-    # https://github.com/vim/vim/issues/6017: cannot create error buffer
     @staticmethod
+    # https://github.com/vim/vim/issues/6017: cannot create error buffer
     # @err_to_scratch_buffer
     # @warn_to_scratch_buffer
     def delete_twbm(args: str):

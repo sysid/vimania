@@ -20,8 +20,9 @@ augroup Vimania
     \ | endif
 augroup END
 
+""    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? 'vm::' && v:event['operator'] == 'd' && ! v:event['visual']
  autocmd TextYankPost *.md
-    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? 'vm::' && v:event['operator'] == 'd' && ! v:event['visual']
+    \ if len(v:event['regcontents']) == 1 && v:event['regcontents'][0] =~? 'http[s]\=://' && v:event['operator'] == 'd' && ! v:event['visual']
     \ | call VimaniaDeleteTwbm(v:event['regcontents'][0])
     \ | endif
 augroup END

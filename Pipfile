@@ -16,6 +16,7 @@ pytest = "*"
 codecov = "*"
 pytest-cov = "*"
 build = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.9"
