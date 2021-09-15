@@ -21,7 +21,9 @@ _log = logging.getLogger("vimania-plugin.core")
 ROOT_DIR = Path(__file__).parent.absolute()
 
 # pattern = re.compile(r""".*vm::(.*)\)+""")
-pattern = re.compile(r"""https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&//=]*""")
+pattern = re.compile(
+    r""".*(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&\/=]*)"""
+)
 
 if sys.platform.startswith("win32"):
     OS_OPEN = "explorer.exe"
