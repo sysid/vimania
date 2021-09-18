@@ -23,7 +23,7 @@ def init_db():
     (Path(__file__).parent / "data/vimania_todos_test.db").unlink(missing_ok=True)
     alembic_root = Path(__file__).parent.parent / "pythonx/vimania/db"
 
-    alembic_cfg = Config(alembic_root / "alembic.ini")
+    alembic_cfg = Config(str(alembic_root / "alembic.ini"))
     alembic_cfg.set_main_option("script_location", str(alembic_root / "alembic"))
     alembic_cfg.set_main_option("sqlalchemy.url", dsn)
 

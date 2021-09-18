@@ -5,7 +5,7 @@ import pytest
 from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str, delete_twbm
 
 
-# @pytest.mark.skip("Interactive test.")
+@pytest.mark.skip("Interactive test.")
 @pytest.mark.parametrize(
     ("uri",),
     (
@@ -17,8 +17,9 @@ from vimania.core import do_vimania, get_mime_type, create_todo_, parse_todo_str
             ("./tests/data/test.md",),
     ),
 )
-def test_do_vimania(uri):
-    # arg = "$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf"
+def test_do_vimania_with_twbm(mocker, uri):
+    mocked = mocker.patch('vimania.core.BukuDb.add_rec', return_value=99)
+    assert mocked.called_once()
     do_vimania(uri)
 
 

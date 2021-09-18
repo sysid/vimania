@@ -110,6 +110,7 @@ class VimaniaManager:
         _log.debug(f"{args=}")
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
 
+        # https://vim.fandom.com/wiki/User_input_from_a_script
         return_message = do_vimania(args)
         if return_message != "":
             vim.command(f"echom '{return_message}'")

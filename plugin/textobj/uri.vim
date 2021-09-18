@@ -205,6 +205,7 @@ function! textobj#uri#add_positioning_pattern(bang, ppattern, ...)
 endfunction
 
 function! textobj#uri#open_uri()
+  " open_uri:res: [['vm::\%(\([^)]\+\)\)', ':call Vimania(g:textobj_uri)'], 'v', [0, 4, 16, 0], [0, 4, 40, 0]]
   let res = s:extract_uri(0)
     call TwDebug(printf('open_uri:res: %s', res))
 
@@ -212,6 +213,7 @@ function! textobj#uri#open_uri()
   if len(res) == 4
     " extract submatches
     let uri_match = matchlist(getline('.')[res[2][2]-1:res[3][2]-1], res[0][0])
+        " ['vm::http://www.vimania.tw', 'http://www.vimania.tw', '', '', '', '', '', '', '', '']
         call TwDebug(printf('open_uri:uri_match: %s', uri_match))
     if uri_match[1] != ''
       " use first submatch as URI
@@ -222,6 +224,7 @@ function! textobj#uri#open_uri()
     let handler = substitute(res[0][1], '%s', fnameescape(uri), 'g')
     if len(handler)
         let g:textobj_uri = uri
+        " open_uri:handler: :call Vimania(g:textobj_uri) http://www.vimania.tw
         call TwDebug(printf('open_uri:handler: %s %s', handler, uri))
       if index([':', '/', '?'], handler[0]) != -1
         exec handler

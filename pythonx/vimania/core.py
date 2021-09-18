@@ -96,11 +96,12 @@ def do_vimania(args: str) -> str:
         _log.error(f"Unknown protocol: {args=}")
         raise VimaniaException(f"Unknown protocol: {args=}")
 
+    # https://vim.fandom.com/wiki/User_input_from_a_script
     _log.info(f"Opening: {p}")
-    id_ = add_twbm(p)
-    if id_ == -1:
+    id_ = add_twbm(str(p))
+    if id_ != -1:
         return_message = f"new added twbm url: {id_=}"
-    _log.debug(f"twbm added: {id_}")
+        _log.debug(f"twbm added: {id_}")
     subprocess.run([OS_OPEN, p])
     return return_message
 
