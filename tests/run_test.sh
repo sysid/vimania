@@ -13,6 +13,14 @@ prep-db() {
   twpopd
 }
 
+prep-twbm() {
+  id=$(TWBM_DB_URL=sqlite://///Users/Q187392/vimwiki/buku/bm.db twbm search --np '"www.google.com"')
+  if test -n "$id"; then
+    echo "-M- Deleting test google entry in twbm"
+    TWBM_DB_URL=sqlite://///Users/Q187392/vimwiki/buku/bm.db twbm delete "$id"
+  fi
+}
+
 #cp -v data/todos.db.empty data/vader.db
 
 if [ -z "$1" ]; then
@@ -25,6 +33,7 @@ fi
 # main
 ################################################################################
 prep-db
+prep-twbm
 
 TW_VIMANIA_DB_URL=sqlite:///data/vader.db vim -Nu <(cat << EOF
 filetype off

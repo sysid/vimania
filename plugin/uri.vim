@@ -12,8 +12,8 @@ endif
 command! -bang -nargs=+ URIPatternAdd :call textobj#uri#add_pattern("<bang>", <f-args>)
 command! -bang -nargs=+ URIPositioningPatternAdd :call textobj#uri#add_positioning_pattern("<bang>", <f-args>)
 
-function! s:TextobjURIOpen()
-    let l:url = textobj#uri#open_uri()
+function! s:TextobjURIOpen(save_twbm)
+    let l:url = textobj#uri#open_uri(a:save_twbm)
     redraw!
     if exists('l:url') && len(l:url)
         echom 'Opening "' . l:url . '"'
@@ -22,11 +22,18 @@ function! s:TextobjURIOpen()
     endif
 endfunction
 
-nnoremap <Plug>TextobjURIOpen :<C-u>call <sid>TextobjURIOpen()<CR>
-command! TextobjURIOpen :call <sid>TextobjURIOpen()
+nnoremap <Plug>TextobjURIOpen :<C-u>call <sid>TextobjURIOpen(0)<CR>
+command! TextobjURIOpen :call <sid>TextobjURIOpen(0)
+
+nnoremap <Plug>TextobjURIOpenSave :<C-u>call <sid>TextobjURIOpen(1)<CR>
+command! TextobjURIOpenSave :call <sid>TextobjURIOpen(1)
 
 if ! hasmapto('<Plug>TextobjURIOpen', 'n')
     nmap go <Plug>TextobjURIOpen
+endif
+
+if ! hasmapto('<Plug>TextobjURIOpenSave', 'n')
+    nmap goo <Plug>TextobjURIOpenSave
 endif
 
 let g:loaded_uri = 1

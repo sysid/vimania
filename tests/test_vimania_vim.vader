@@ -7,7 +7,7 @@ Given (test-buffer text):
   yyy://$HOME/dev/vim/vim-textobj-uri/test/vimania//vimania.pdf
 
 Execute(Should open marked2 viewer):
-  Vimania $HOME/dev/vim/vimania/tests/data/test.md
+  Vimania $HOME/dev/vim/vimania/tests/data/test.md 0
   "Vimania /Users/Q187392/dev/vim/vimania/tests/data/test.md
 Then ():
   Messages
@@ -32,8 +32,8 @@ Then ():
   Log printf("Len of location list: %s", len(getqflist()))
 "  Assert len(getqflist()) == 2
 
-Execute(add twbm):
-  Vimania http://www.google.com
+Execute(add twbm: make sure www.google.com does not exist int twbm prod):
+  Vimania http://www.google.com 1
 Then ():
   Messages
   Cfilter add_twbm

@@ -106,12 +106,12 @@ class VimaniaManager:
     @staticmethod
     @err_to_scratch_buffer
     @warn_to_scratch_buffer
-    def call_vimania(args: str):
-        _log.debug(f"{args=}")
+    def call_vimania(args: str, save_twbm: str):
+        _log.debug(f"{args=}, {save_twbm=}")
         assert isinstance(args, str), f"Error: input must be string, got {type(args)}."
 
         # https://vim.fandom.com/wiki/User_input_from_a_script
-        return_message = do_vimania(args)
+        return_message = do_vimania(args, False if int(save_twbm) == 0 else True)
         if return_message != "":
             vim.command(f"echom '{return_message}'")
 

@@ -70,11 +70,14 @@ def do_vimania(args: str, save_twbm: bool = False) -> str:
     p, return_message = get_fqp(args)
 
     # https://vim.fandom.com/wiki/User_input_from_a_script
+
+    if save_twbm:
+        id_ = add_twbm(str(p))
+        if id_ != -1:
+            return_message = f"new added twbm url: {id_=}"
+            _log.debug(f"twbm added: {id_}")
+
     _log.info(f"Opening: {p}")
-    id_ = add_twbm(str(p))
-    if id_ != -1:
-        return_message = f"new added twbm url: {id_=}"
-        _log.debug(f"twbm added: {id_}")
     subprocess.run([OS_OPEN, p])
     return return_message
 

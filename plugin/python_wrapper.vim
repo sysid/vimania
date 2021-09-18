@@ -67,11 +67,11 @@ EOF
 """"""""""""""": TODO
 "redraw
 
-function! Vimania(args)
-  call TwDebug(printf("Vimania args: %s", a:args))
-  python3 xMgr.call_vimania(vim.eval('a:args'))
+function! Vimania(args, save_twbm)
+  call TwDebug(printf("Vimania args: %s, save_twbm: %s", a:args, a:save_twbm))
+  python3 xMgr.call_vimania(vim.eval('a:args'), vim.eval('a:save_twbm'))
 endfunction
-command! -nargs=1 Vimania call Vimania(<f-args>)
+command! -nargs=* Vimania call Vimania(<f-args>)
 "nnoremap Q :Vimania /Users/Q187392/dev/vim/vimania/tests/data/test.md<CR>
 
 function! VimaniaEdit(args)

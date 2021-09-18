@@ -1,66 +1,25 @@
 import re
-from pathlib import Path
 
 import pytest
-
 from vimania.core import (
     do_vimania,
     get_mime_type,
     create_todo_,
     parse_todo_str,
-    delete_twbm,
     get_fqp,
 )
 
 
-@pytest.mark.parametrize(
-    ("uri", "fqp", "ret_msg"),
-    (
-        (
-            "$HOME/dev/vim/vimania/tests/data/vimania.pdf",
-            "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
-            "",
-        ),
-        (
-                "$XXXX/dev/vim/vimania/tests/data/vimania.pdf",
-                "$XXXX/dev/vim/vimania/tests/data/vimania.pdf",
-                "$XXXX not set in environment. Cannot proceed.",
-        ),
-        (
-            "~/dev/vim/vimania/tests/data/vimania.pdf",
-            "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
-            "",
-        ),
-        (
-            "/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",
-            "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
-            "",
-        ),
-        ("https://www.google.com", "https://www.google.com", ""),
-        (
-            "./tests/data/test.md",
-            "/Users/Q187392/dev/vim/vimania/tests/data/test.md",
-            "",
-        ),
-    ),
-)
-def test_get_fqp(mocker, uri, fqp, ret_msg):
-    p, return_message = get_fqp(uri)
-    assert p == fqp
-    assert return_message == ret_msg
-    _ = None
-
-
-# @pytest.mark.skip("Interactive test)
+@pytest.mark.skip("Interactive test")
 @pytest.mark.parametrize(
     ("uri",),
     (
-        # ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",),
-        # ("$HOME/dev/vim/vimania/tests/data/vimania.pdf",),
-        # ("/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",),
-        # ("https://www.google.com",),
-        # ("./tests/data/tsl-handshake.png",),
-        ("./tests/data/test.md",),
+            # ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",),
+            # ("$HOME/dev/vim/vimania/tests/data/vimania.pdf",),
+            # ("/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",),
+            # ("https://www.google.com",),
+            # ("./tests/data/tsl-handshake.png",),
+            ("./tests/data/test.md",),
     ),
 )
 def test_do_vimania_with_twbm(mocker, uri):
@@ -70,14 +29,52 @@ def test_do_vimania_with_twbm(mocker, uri):
 
 
 @pytest.mark.parametrize(
+    ("uri", "fqp", "ret_msg"),
+    (
+            (
+                    "$HOME/dev/vim/vimania/tests/data/vimania.pdf",
+                    "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
+                    "",
+            ),
+            (
+                    "$XXXX/dev/vim/vimania/tests/data/vimania.pdf",
+                    "$XXXX/dev/vim/vimania/tests/data/vimania.pdf",
+                    "$XXXX not set in environment. Cannot proceed.",
+            ),
+            (
+                    "~/dev/vim/vimania/tests/data/vimania.pdf",
+                    "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
+                    "",
+            ),
+            (
+                    "/Users/Q187392/dev/vim/vimania/tests/data///vimania.pdf",
+                    "/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf",
+                    "",
+            ),
+            ("https://www.google.com", "https://www.google.com", ""),
+            (
+                    "./tests/data/test.md",
+                    "/Users/Q187392/dev/vim/vimania/tests/data/test.md",
+                    "",
+            ),
+    ),
+)
+def test_get_fqp(mocker, uri, fqp, ret_msg):
+    p, return_message = get_fqp(uri)
+    assert p == fqp
+    assert return_message == ret_msg
+    _ = None
+
+
+@pytest.mark.parametrize(
     ("uri", "result"),
     (
-        ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf", "application/pdf"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/x.html", "text/html"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/tsl-handshake.png", "image/png"),
-        ("/Users/Q187392/dev/vim/vimania/tests/data/test.md", "text/plain"),
-        ("https://www.google.com", "application/x-msdownload"),
-        ("mailto:xxx@bla.com", "application/x-msdownload"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/vimania.pdf", "application/pdf"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/x.html", "text/html"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/tsl-handshake.png", "image/png"),
+            ("/Users/Q187392/dev/vim/vimania/tests/data/test.md", "text/plain"),
+            ("https://www.google.com", "application/x-msdownload"),
+            ("mailto:xxx@bla.com", "application/x-msdownload"),
     ),
 )
 def test_get_mimetype(uri, result):
@@ -89,10 +86,10 @@ def test_get_mimetype(uri, result):
 @pytest.mark.parametrize(
     ("uri", "todo_status", "todo"),
     (
-        ("- [ ] bla blub", 0, "bla blub"),
-        ("- [-] bla blub", 1, "bla blub"),
-        ("- [x] bla blub", 2, "bla blub"),
-        ("- [X] bla blub", 2, "bla blub"),
+            ("- [ ] bla blub", 0, "bla blub"),
+            ("- [-] bla blub", 1, "bla blub"),
+            ("- [x] bla blub", 2, "bla blub"),
+            ("- [X] bla blub", 2, "bla blub"),
     ),
 )
 def test_parse_todo_str(uri, todo_status, todo):
@@ -130,15 +127,15 @@ def test_create_todo(uri, path, result):
 @pytest.mark.parametrize(
     ("line", "result"),
     (
-        ("[testuri](vm::http://www.test.org)", "http://www.test.org"),
-        ("asdf http://www.google.com asdf", "http://www.google.com"),
-        ("balaser https://my.net asdf", "https://my.net"),
-        ("[testuri](vm::http://www.test.org) adf", "http://www.test.org"),
-        (
-            "[testuri](vm::http://www.test.org#adf?asdf&xxxx aaaaaaa",
-            "http://www.test.org#adf?asdf&xxxx",
-        ),
-        ("[testuri](vm::http://www.test.org)adf", "http://www.test.org"),
+            ("[testuri](vm::http://www.test.org)", "http://www.test.org"),
+            ("asdf http://www.google.com asdf", "http://www.google.com"),
+            ("balaser https://my.net asdf", "https://my.net"),
+            ("[testuri](vm::http://www.test.org) adf", "http://www.test.org"),
+            (
+                    "[testuri](vm::http://www.test.org#adf?asdf&xxxx aaaaaaa",
+                    "http://www.test.org#adf?asdf&xxxx",
+            ),
+            ("[testuri](vm::http://www.test.org)adf", "http://www.test.org"),
     ),
 )
 def test_delete_twbm_regexp(mocker, line, result):
@@ -147,10 +144,10 @@ def test_delete_twbm_regexp(mocker, line, result):
     # spy = mocker.patch("vimania.core.BukuDb")
     # delete_twbm(line)
     assert (
-        re.compile(
-            r""".*(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&\/=]*)"""
-        )
-        .match(line)
-        .group(1)
-        == result
+            re.compile(
+                r""".*(https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b[-a-zA-Z0-9@:%_\+.~#?&\/=]*)"""
+            )
+            .match(line)
+            .group(1)
+            == result
     )

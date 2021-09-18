@@ -49,7 +49,7 @@ let g:textobj_uri_patterns = {
       \ '\%(http\|https\|ftp\):\/\/[a-zA-Z0-9:@_-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*\%(:\d\+\)\?\%(\/[a-zA-Z0-9_\/.\-+%#?&=;@$,!''*~]*\)\?': ':call Vimania(g:textobj_uri)',
       \ 'mailto:[a-zA-Z0-9._]\+@[a-zA-Z0-9-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*': ':call TextobjUriOpen()',
       \ 'file://\%(\([^)]\+\)\)': ':call TextobjUriOpen()',
-      \ 'vm::\%(\([^)]\+\)\)': ':call Vimania(g:textobj_uri)',
+      \ 'vm::\%(\([^)]\+\)\)': ':call Vimania(g:textobj_uri, a:save_twbm)',
       \ 'vim::\%(\([^)]\+\)\)': ':call VimaniaEdit(g:textobj_uri)',
       \ 'todo::\%(\([^)]\+\)\)': ':call VimaniaTodo(g:textobj_uri, expand("%:p"))',
       \ }
@@ -204,10 +204,10 @@ function! textobj#uri#add_positioning_pattern(bang, ppattern, ...)
   endif
 endfunction
 
-function! textobj#uri#open_uri()
+function! textobj#uri#open_uri(save_twbm)
   " open_uri:res: [['vm::\%(\([^)]\+\)\)', ':call Vimania(g:textobj_uri)'], 'v', [0, 4, 16, 0], [0, 4, 40, 0]]
   let res = s:extract_uri(0)
-    call TwDebug(printf('open_uri:res: %s', res))
+    call TwDebug(printf('open_uri:res: %s save_twbm: %s', res, a:save_twbm))
 
   let uri = ''
   if len(res) == 4
@@ -222,19 +222,23 @@ function! textobj#uri#open_uri()
       let uri = uri_match[0]
     endif
     let handler = substitute(res[0][1], '%s', fnameescape(uri), 'g')
+
     if len(handler)
         let g:textobj_uri = uri
         " open_uri:handler: :call Vimania(g:textobj_uri) http://www.vimania.tw
         call TwDebug(printf('open_uri:handler: %s %s', handler, uri))
+
       if index([':', '/', '?'], handler[0]) != -1
         exec handler
       else
         exec 'normal' handler
       endif
+
       unlet g:textobj_uri
     else
       throw "No handler specified"
     endif
+
   endif
   return uri
 endfunction
