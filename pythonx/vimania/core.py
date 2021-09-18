@@ -52,8 +52,11 @@ def is_text(uri: str) -> bool:
     return get_mime_type(uri).startswith("text")
 
 
-def do_vimania(args: str) -> str:
-    """Handler for protocol URI calls"""
+def do_vimania(args: str, save_twbm: bool = False) -> str:
+    """Handler for protocol URI calls
+
+    returns the message to display in vim
+    """
     return_message = ""  # return message for vim: echom
     if OS_OPEN is None:
         _log.error(f"Unknown OS architecture: {sys.platform}")
@@ -61,11 +64,23 @@ def do_vimania(args: str) -> str:
 
     if not isinstance(args, str):
         _log.error(f"wrong args type: {type(args)}")
-        return 1
+        return f"wrong args type: {type(args)}"
 
     _log.info(f"{args=}")
-    p = Path.home()  # default setting
+    p, return_message = get_fqp(args)
 
+    # https://vim.fandom.com/wiki/User_input_from_a_script
+    _log.info(f"Opening: {p}")
+    id_ = add_twbm(str(p))
+    if id_ != -1:
+        return_message = f"new added twbm url: {id_=}"
+        _log.debug(f"twbm added: {id_}")
+    subprocess.run([OS_OPEN, p])
+    return return_message
+
+
+def get_fqp(args: str) -> Tuple[str, str]:
+    p = Path.home()  # default setting
     if args.startswith("http"):
         _log.debug(f"Http Link")
         p = args
@@ -83,7 +98,7 @@ def do_vimania(args: str) -> str:
             env_path = os.getenv(p.parts[0].strip("$"), None)
             if env_path is None:
                 _log.warning(f"{p.parts[0]} not set in environment. Cannot proceed.")
-                return
+                return str(p), f"{p.parts[0]} not set in environment. Cannot proceed."
             p = Path(env_path) / Path(*p.parts[1:])
         else:
             _log.debug(f"Relative path: {args}, working dir: {os.getcwd()}")
@@ -96,14 +111,7 @@ def do_vimania(args: str) -> str:
         _log.error(f"Unknown protocol: {args=}")
         raise VimaniaException(f"Unknown protocol: {args=}")
 
-    # https://vim.fandom.com/wiki/User_input_from_a_script
-    _log.info(f"Opening: {p}")
-    id_ = add_twbm(str(p))
-    if id_ != -1:
-        return_message = f"new added twbm url: {id_=}"
-        _log.debug(f"twbm added: {id_}")
-    subprocess.run([OS_OPEN, p])
-    return return_message
+    return str(p), ""
 
 
 def create_todo_(args: str, path: str) -> int:
