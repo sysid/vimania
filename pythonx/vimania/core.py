@@ -88,7 +88,9 @@ def get_fqp(args: str) -> Tuple[str, str]:
         _log.debug(f"Http Link")
         p = args
     # next elif needed to group all possible pathes
-    elif args[0] in "/.~$0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+    elif (
+        args[0] in "/.~$0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    ):
         if args.startswith("/"):
             _log.debug(f"Absolute path.")
             p = Path(args)
@@ -183,7 +185,9 @@ def add_twbm(url: str) -> int:
     )
     if id_ == -1:
         # raise SystemError(f"Error adding {url=} to DB {config.dbfile_twbm}")
-        _log.error(f"Error adding {url=} to DB {config.dbfile_twbm}")  # TODO: buku.py error handling
+        _log.error(
+            f"Error adding {url=} to DB {config.dbfile_twbm}"
+        )  # TODO: buku.py error handling
     else:
         _log.debug(f"Added twbm: {id_=} - {url} to DB {config.dbfile_twbm}")
     return id_
@@ -205,10 +209,14 @@ def delete_twbm(line: str) -> Tuple[int, str]:
         # (1, 'http://example.com', 'example title', ',tags1,', 'randomdesc', 0))
         bm_var = BukuDb(dbfile=config.dbfile_twbm).get_rec_by_id(id_)
 
-        if 'vimania' in bm_var[3]:
+        if "vimania" in bm_var[3]:
             _log.debug(f"Deleting twbm: {url}")
-            if not BukuDb(dbfile=config.dbfile_twbm).delete_rec(index=id_, delay_commit=False):
-                raise VimaniaException(f"Cannot delete {url=} from: {config.dbfile_twbm}")
+            if not BukuDb(dbfile=config.dbfile_twbm).delete_rec(
+                index=id_, delay_commit=False
+            ):
+                raise VimaniaException(
+                    f"Cannot delete {url=} from: {config.dbfile_twbm}"
+                )
         else:
             _log.debug(f"{url=} not managed by vimania, no deletion.")
             url = "{url=} not managed by vimania, no deletion."

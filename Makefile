@@ -74,13 +74,13 @@ tag:  ## tag with VERSION
 	git push --tags
 
 .PHONY: black
-black:  ## format with black
+black: clean-vim  ## format with black
 	@echo "Formatting with black"
 	#black --check --verbose --exclude="twbm/buku.py" .
 	black pythonx/vimania
 
 .PHONY: install
-install:  ## pipx install
+install: clean-vim uninstall  ## pipx install
 	pipx install $(HOME)/dev/vim/vimania/pythonx
 
 .PHONY: uninstall

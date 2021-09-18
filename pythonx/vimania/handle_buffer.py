@@ -147,14 +147,14 @@ class Line:
 
             line = (
                 # self.match.group(MatchEnum.LEVEL.value)
-                    f"\t" * abs(self.depth)  # read from db for existing todos
-                    + self.match.group(MatchEnum.FILL0.value).rstrip()
-                    + insert_code
-                    + self.match.group(MatchEnum.FILL1.value)
-                    + self.todo.raw_status
-                    + self.match.group(MatchEnum.FILL2.value)
-                    + self.todo.todo
-                    + self.todo.raw_tags
+                f"\t" * abs(self.depth)  # read from db for existing todos
+                + self.match.group(MatchEnum.FILL0.value).rstrip()
+                + insert_code
+                + self.match.group(MatchEnum.FILL1.value)
+                + self.todo.raw_status
+                + self.match.group(MatchEnum.FILL2.value)
+                + self.todo.todo
+                + self.todo.raw_tags
             )
             return line
         else:

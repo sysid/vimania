@@ -203,7 +203,9 @@ class VimaniaManager:
         try:
             id_, url = delete_twbm(args)
         except VimaniaException as e:
-            vim.command(f"echohl WarningMsg | echom 'Cannot extract url from: {args}' | echohl None")
+            vim.command(
+                f"echohl WarningMsg | echom 'Cannot extract url from: {args}' | echohl None"
+            )
             return
         vim.command(f"echom 'deleted twbm: {url} {id_=}'")
 
