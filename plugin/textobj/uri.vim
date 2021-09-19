@@ -46,7 +46,7 @@ let g:textobj_uri_patterns_markdown = {
 ""      \ 'file:///\%(\k[\/.]*\)\+': ':call TextobjUriOpen()',
 ""      \ 'file://\%(\([^)]\+\)\)': ':call TextobjUriOpen()',
 let g:textobj_uri_patterns = {
-      \ '\%(http\|https\|ftp\):\/\/[a-zA-Z0-9:@_-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*\%(:\d\+\)\?\%(\/[a-zA-Z0-9_\/.\-+%#?&=;@$,!''*~]*\)\?': ':call Vimania(g:textobj_uri)',
+      \ '\%(http\|https\|ftp\):\/\/[a-zA-Z0-9:@_-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*\%(:\d\+\)\?\%(\/[a-zA-Z0-9_\/.\-+%#?&=;@$,!''*~]*\)\?': ':call Vimania(g:textobj_uri, a:save_twbm)',
       \ 'mailto:[a-zA-Z0-9._]\+@[a-zA-Z0-9-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*': ':call TextobjUriOpen()',
       \ 'file://\%(\([^)]\+\)\)': ':call TextobjUriOpen()',
       \ 'vm::\%(\([^)]\+\)\)': ':call Vimania(g:textobj_uri, a:save_twbm)',
