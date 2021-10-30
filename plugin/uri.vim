@@ -1,8 +1,6 @@
 " uri.vim:      Textobjects for dealing with URIs
-" Author:       Jan Christoph Ebersbach <jceb@e-jc.de>
-" Version:      0.4
-" Dependecy:    vim-textobj-user
-" Copyright:    2016 Jan Christoph Ebersbach
+" Author:       sysid, based on work from Jan Christoph Ebersbach <jceb@e-jc.de>
+" Dependecy:    twbm, vim-textobj-user
 " License:      MIT LICENSE, see LICENSE file
 
 if exists('g:loaded_uri')
@@ -22,9 +20,11 @@ function! s:TextobjURIOpen(save_twbm)
     endif
 endfunction
 
+" opens the URI no saving action triggered
 nnoremap <Plug>TextobjURIOpen :<C-u>call <sid>TextobjURIOpen(0)<CR>
 command! TextobjURIOpen :call <sid>TextobjURIOpen(0)
 
+" opens the URI and saves it to URI DB from twbm module (python)
 nnoremap <Plug>TextobjURIOpenSave :<C-u>call <sid>TextobjURIOpen(1)<CR>
 command! TextobjURIOpenSave :call <sid>TextobjURIOpen(1)
 
