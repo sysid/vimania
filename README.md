@@ -78,6 +78,7 @@ todo...
 
 1. Install `https://github.com/sysid/vimania` with your favourite VIM plugin manager
 2. Install python dependencies (see Pipfile) into `<vimplugins>/vimania/pythonx`
+3. Install CLI interface: `make install` (requires pipx)
 
 ### Dependency
 [vim-textobj-uri](https://github.com/jceb/vim-textobj-uri) must be installed for URI identification

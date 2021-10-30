@@ -85,7 +85,7 @@ install: clean-vim uninstall  ## pipx install
 
 .PHONY: uninstall
 uninstall:  ## pipx uninstall
-	pipx uninstall vimania
+	-pipx uninstall vimania
 
 .PHONY: bump-minor
 bump-minor:  ## bump-minor
