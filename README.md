@@ -76,21 +76,25 @@ todo...
 
 ## Installation
 
-1. Vimenia uses [vim-textobj-uri](https://github.com/jceb/vim-textobj-uri) for URI identification, so install via Plugin
-   manager.
-2. Vimenia: todo installation method
+1. Install `https://github.com/sysid/vimania` with your favourite VIM plugin manager
+2. Install python dependencies (see Pipfile) into `<vimplugins>/vimania/pythonx`
+
+### Dependency
+[vim-textobj-uri](https://github.com/jceb/vim-textobj-uri) must be installed for URI identification
 
 Optional:
+[twbm](https://github.com/sysid/twbm) for seamless bookmark manager integration
+[UltiSnips](https://github.com/SirVer/ultisnips) for easy uri and todo creation
 
-3. [UltiSnips](https://github.com/SirVer/ultisnips) via Plugin manager
 
 ### Configuration
 
 Vimenia needs to know, where your Todos database is located:
 `TW_VIMANIA_DB_URL="sqlite:///$HOME/vimania/todos.db"`
 
-# Implementation Details
 
+
+# Implementation Details
 ## URI Handler: Protocols
 
 - `vm::`: invokes the OS specific *open* command on the following path/url
@@ -140,9 +144,9 @@ After saving the file, the identifiers have been added and the items are saved i
 ## Caveat
 
 - Deleting markdown todo items outside Vimenia will cause inconsistency between the DB and the markdown state.
-- Always use `dd` to delete a markdown item in order to trigger DB update
+- Always use `dd` to delete a markdown item in order to trigger the corresponding DB update
 - Never change the identifier '%99%' manually.
-- Todo items are always updated from the DB when opening a markdown file, so changes not written back to DB will be
+- Todo items are always synced from the DB when opening a markdown file, so changes not written back to DB will be
   lost.
 
 Markdown content other than todo items can be changed arbitrarily, of course.
