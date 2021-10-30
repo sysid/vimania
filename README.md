@@ -45,9 +45,20 @@ It integrates seamless with bookmark manager [twbm](https://github.com/sysid/twb
   belong but have a centralized view on it
 - no more missing, obsolete or duplicated todos
 - Synchronization of todo status between Markdown files and database
-- todo lists within code fences are ignored
+- todo lists within code fences in markdown are ignored
 - DB entry has a link to the task's source file, so by looking in the DB any todo can be located.
 - Todos are removed from database when removed from markdown file with `dd`
+
+### CLI interface
+- `vimania` provides a CLI interface with full-text search capabilities to your todo database:
+
+```bash
+vimania -h
+
+vimania search
+```
+
+The CLI interface is identical to the `twbm` interface, so no additional learning curve required.
 
 ### URL management: `twbm` integration
 
