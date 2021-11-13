@@ -96,6 +96,10 @@ bump-patch:  ## bump-patch
 	#bumpversion --dry-run --allow-dirty --verbose patch
 	bumpversion --verbose patch
 
+.PHONY: copy-buku
+copy-buku:  ## copy-buku: copy buku.py from twbm
+	cp $(HOME)/dev/py/twbm/twbm/buku.py $(HOME)/dev/vim/vimania/pythonx/vimania/buku.py
+
 .PHONY: help
 help: ## Show help message
 	@IFS=$$'\n' ; \
