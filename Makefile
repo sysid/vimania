@@ -101,8 +101,13 @@ copy-buku:  ## copy-buku: copy buku.py from twbm
 	cp $(HOME)/dev/py/twbm/twbm/buku.py $(HOME)/dev/vim/vimania/pythonx/vimania/buku.py
 
 .PHONY: develop
-develop:  clean-vim ## develop python module, prep accordingly
+develop: _confirm clean-vim ## develop python module, prep accordingly
 	pycharm .
+
+.PHONY: _confirm
+_confirm:
+	@echo -n "Are you sure? [y/N] " && read ans && [ $${ans:-N} = y ]
+	@echo "Action confirmed by user."
 
 .PHONY: help
 help: ## Show help message
