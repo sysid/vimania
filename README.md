@@ -8,6 +8,8 @@ Key features:
 2. Automated todo management with database backend. Todos are synchronized between markdown source file and database,
    i.e. todos can be updated direct in the DB.
 
+![Component](doc/component-vimenia.png)
+
 ## 1. Handler for URIs
 
 It provides its versatility via a super simple user interface:
