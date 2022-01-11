@@ -64,7 +64,7 @@ clean-vim:  ## clean pythonx directory
 	@pushd pythonx; git clean -d -x -f; popd
 
 .PHONY: build-vim
-build-vim:  ## copy all python packages into pythonx
+build-vim: _confirm ## copy all python packages into pythonx
 	./scripts/cp_venv.sh dev
 
 .PHONY: tag
