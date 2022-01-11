@@ -54,7 +54,7 @@ def is_text(uri: str) -> bool:
 
 def do_vimania(args: str, save_twbm: bool = False) -> str:
     """Handler for protocol URI calls
-
+    save_twbm will be set by vim
     returns the message to display in vim
     """
     return_message = ""  # return message for vim: echom
@@ -71,7 +71,7 @@ def do_vimania(args: str, save_twbm: bool = False) -> str:
 
     # https://vim.fandom.com/wiki/User_input_from_a_script
 
-    if save_twbm:
+    if save_twbm and config.is_installed_twbm:
         id_ = add_twbm(str(p))
         if id_ != -1:
             return_message = f"new added twbm url: {id_=}"

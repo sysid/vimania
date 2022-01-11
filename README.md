@@ -63,7 +63,7 @@ The CLI interface is identical to the `twbm` interface, so no additional learnin
 ### URL management: `twbm` integration
 
 - If `twbm` is installed `Vimania` pushes URL's to the bookmark database transparently when opening the bookmark
-  with `go`.
+  with `goo`.
 - Pushed bookmarks have the default tag `vimania` in the bookmarks db.
 - Bookmarks are removed from bookmarks database when removed from markdown file with `dd`
 
@@ -103,6 +103,9 @@ Optional:
 
 Vimenia needs to know, where your Todos database is located:
 `TW_VIMANIA_DB_URL="sqlite:///$HOME/vimania/todos.db"`
+
+Optionally where your twbm database is located:
+`TWBM_DB_URL="sqlite:///$HOME/twbm/todos.db"`
 
 
 
@@ -192,15 +195,14 @@ todo items fo their identifier:
 
 
 # Development
-## Preparation
-### Python only
-If only developing the python module, lean the `pythonx` directory. The model will look up
-dependencies in the development venv.:
-- clear the `pythonx` directory from bundled libs: `make clean-vim`
+PyCharm's source route should be `pythonx`. However, this causes problems when all dependencies are existent.
+So before starting PyCharm run `make clean-vim` to clear `pythonx`.
+The module will look up dependencies in the development `.venv`.
 
-### Vim Plugin
+## Vim Plugin
 for vim-plugin development do NOT clear `pythonx` because loading of python module will not work. The vim
 plugin needs to find all dependencies in `pythonx`.
+However, try to avoid bringing up PyCharm because it tries to index the entire dependency tree.
 
 ### Other
 - `buku.py` needs to be copied from `twbm` package as it is used to push URLs to buku DB.
@@ -256,4 +258,3 @@ reset db: `alembic upgrade head`
 # Credits
 
 It is inspired by and recommends to use [UltiSnips](https://github.com/SirVer/ultisnips).
-

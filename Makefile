@@ -100,6 +100,10 @@ bump-patch:  ## bump-patch
 copy-buku:  ## copy-buku: copy buku.py from twbm
 	cp $(HOME)/dev/py/twbm/twbm/buku.py $(HOME)/dev/vim/vimania/pythonx/vimania/buku.py
 
+.PHONY: develop
+develop:  clean-vim ## develop python module, prep accordingly
+	pycharm .
+
 .PHONY: help
 help: ## Show help message
 	@IFS=$$'\n' ; \
