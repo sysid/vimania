@@ -190,37 +190,39 @@ todo items fo their identifier:
     - edit the markdown files and remove the allocated database-id to allow for
       re-init: `sed -i 's/-%[0-9]\+%/-/' todo.md`
 
-## Development
 
-- `buku.py` needs to be copied from `twbm` package as it is used to push URLs to buku DB.
-
-### Preparation
-
+# Development
+## Preparation
+### Python only
+If only developing the python module, lean the `pythonx` directory. The model will look up
+dependencies in the development venv.:
 - clear the `pythonx` directory from bundled libs: `make clean-vim`
 
-### Testing
+### Vim Plugin
+for vim-plugin development do NOT clear `pythonx` because loading of python module will not work. The vim
+plugin needs to find all dependencies in `pythonx`.
+
+### Other
+- `buku.py` needs to be copied from `twbm` package as it is used to push URLs to buku DB.
+
+
+## Testing
 
 Setup: Make sure that the working directory of test-runs is the project-root (e.g. in PyCharm)
+`make test`
+`make test-vim`
 
-#### VIM bridge
+### VIM bridge
 
 - For python changes it is important to restart vim after every change in order to enforce proper reload:
   this is best automated with a Vader script: `run_tests.sh testfile` in tests directory.
 - vimscript changes can be reloaded as usual
 
-#### Python
-
-run python tests: `make test`
-
-#### Integration
-
-run integration tests with vim and pyhthon: `make test-vim`
-
-#### textobj/uri
+### textobj/uri
 
 - Use vim mapping `go` on the `*.vader` URIs. -- Regexp: https://regex101.com/r/LpSX0i/1
 
-#### Example
+### Example
 
 Example for registration of additional object and their handler:
 
