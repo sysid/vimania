@@ -48,11 +48,11 @@ let g:textobj_uri_patterns_markdown = {
 let g:textobj_uri_patterns = {
       \ '\%(http\|https\|ftp\):\/\/[a-zA-Z0-9:@_-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*\%(:\d\+\)\?\%(\/[a-zA-Z0-9_\/.\-+%#?&=;@$,!''*~]*\)\?': ':call Vimania(g:textobj_uri, a:save_twbm)',
       \ 'mailto:[a-zA-Z0-9._]\+@[a-zA-Z0-9-]*\%(\.[a-zA-Z0-9][a-zA-Z0-9-]*\)*': ':call TextobjUriOpen()',
-      \ '\%((\(.\+\))\)': ':call TextobjUriOpen()',
       \ 'file://\%(\([^)]\+\)\)': ':call TextobjUriOpen()',
       \ 'vm::\%(\([^)]\+\)\)': ':call Vimania(g:textobj_uri, a:save_twbm)',
       \ 'vim::\%(\([^)]\+\)\)': ':call VimaniaEdit(g:textobj_uri)',
       \ 'todo::\%(\([^)]\+\)\)': ':call VimaniaTodo(g:textobj_uri, expand("%:p"))',
+      \ '\%((\(.\+\))\)': ':call TextobjUriOpen()',
       \ }
 
 let g:textobj_uri_search_timeout = 100
