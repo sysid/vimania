@@ -125,6 +125,7 @@ def create_todo_(args: str, path: str) -> int:
 
     with DAL(env_config=config) as dal:
         todos = dal.get_todos(fts_query=todo.todo)
+        _ = None
         if len(todos) >= 1:
             active_todos = [todo for todo in todos if todo.flags < TodoStatus.DONE]
             if len(active_todos) > 1:
@@ -137,6 +138,7 @@ def create_todo_(args: str, path: str) -> int:
             else:
                 _log.debug(f"Creating todo: {todo.todo}")
                 id_ = dal.insert_todo(todo)
+        return id_
 
 
 def parse_todo_str(args: str) -> Todo:

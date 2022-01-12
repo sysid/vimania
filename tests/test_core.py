@@ -126,8 +126,9 @@ def test_create_invalid_todo_db_inconsistency(uri, path, result):
     ("uri", "path", "result"),
     (("- [ ] todo yyy", "testpath", "new todo"),),
 )
-def test_create_todo(uri, path, result):
-    create_todo_(uri, path)  # TODO assert missing
+def test_create_todo(dal, uri, path, result):
+    result = create_todo_(uri, path)
+    assert result == 13
 
 
 # @pytest.mark.parametrize(
