@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a4cdc74b9b9ca70d45b9c375fb14576793d2d4f2dab7af24bf76b6c99dcee522"
+            "sha256": "5c82fa75b3e19a61bb0375b413432524d0b684eeff1de99a77829bd3f225c788"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "aiosql": {
             "hashes": [
-                "sha256:467067f2d237e2ccc47a3f651ae6bd128d89287a5dbf1357c065c9be37947cbc",
-                "sha256:e7144b0e96c2783b79002657497b3a16ee41068290adc1e89cf08cb3974c76fa"
+                "sha256:87097f7ddad6a2dcd44f2be18b218a64c04f7f4f363339158dfea3b0a0168b90",
+                "sha256:8b63851cde010214f7d26c45403e4e21834ee42c74764878c77edf0b80f7d58d"
             ],
             "index": "pypi",
-            "version": "===3.3.1"
+            "version": "==3.4.0"
         },
         "alembic": {
             "hashes": [
@@ -301,12 +301,11 @@
         },
         "typing-extensions": {
             "hashes": [
-                "sha256:49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e",
-                "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7",
-                "sha256:f1d25edafde516b146ecd0613dabcc61409817af4766fbbcfb8d1ad4ec441a34"
+                "sha256:4ca091dea149f945ec56afb48dae714f21e8692ef22a395223bcd328961b6a0e",
+                "sha256:7f001e5ac290a0c0401508864c7ec868be4e701886d5b573a9528ed3973d9d3b"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==3.10.0.2"
+            "version": "==4.0.1"
         }
     },
     "develop": {
@@ -352,7 +351,7 @@
         },
         "coverage": {
             "extras": [
-                "toml"
+
             ],
             "hashes": [
                 "sha256:01774a2c2c729619760320270e42cd9e797427ecfddd32c2a7b639cdc481f3c0",
@@ -505,7 +504,7 @@
                 "sha256:b5bde28da1fed24b9bd1d4d2b8cba62300bfb4ec9a6187a957e8ddb9434c5224",
                 "sha256:c292c34f58502a1eb2bbb9f5bbc9a5ebc37bee10ffb8c2d6bbdfa8eb13cc14e1"
             ],
-            "markers": "python_version >= '3.6'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.0.0"
         },
         "urllib3": {
