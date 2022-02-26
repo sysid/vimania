@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiosql = "===3.3.1"
+aiosql = "===3.4.1"
 sqlalchemy = "*"
 typer = "*"
 pydantic = "*"
