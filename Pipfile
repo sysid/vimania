@@ -4,12 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiosql = "===3.4.1"
+aiosql = "*"
 sqlalchemy = "*"
 typer = "*"
 pydantic = "*"
 alembic = "*"
 beautifulsoup4 = "*"
+pytest = "*"
 
 [dev-packages]
 pytest = "*"
