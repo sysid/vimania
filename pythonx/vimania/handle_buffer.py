@@ -337,7 +337,8 @@ def handle_it(lines: List[str], path: str, read: bool = False) -> List[str]:
             new_lines.append(l)
             continue
 
-        line = Line(l.strip("'"), path=path, running_todos=running_todos)
+        # line = Line(l.strip("'"), path=path, running_todos=running_todos)  # TODO: BUG single quote
+        line = Line(l, path=path, running_todos=running_todos)
         if read:
             new_line = line.handle_read()
         else:

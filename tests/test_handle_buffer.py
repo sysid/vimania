@@ -12,6 +12,8 @@ from vimania.handle_buffer import VimTodo, Line, handle_it, delete_todo_
     ("text", "result"),
     (
         ("- [ ] bla bub ()", "-%13% [ ] bla bub ()"),
+        ("- [ ] bla bub '()'", "-%13% [ ] bla bub '()'"),  # Bug: trailing single quote
+        ("'- [ ] invalid single quote'", "'- [ ] invalid single quote'"),  # Bug: trailing single quote
         ("- [b] xxxx: invalid", "- [b] xxxx: invalid"),
         ("[ ] xxxx: invalid", "[ ] xxxx: invalid"),
         ("- [ ] todoa ends () hiere.", "-%13% [ ] todoa ends () hiere."),
