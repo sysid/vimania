@@ -222,6 +222,8 @@ function! textobj#uri#open_uri(save_twbm)
     else
       let uri = uri_match[0]
     endif
+    " remove trailing single quote
+    let uri = substitute(uri, '''$', '', '')
     let handler = substitute(res[0][1], '%s', fnameescape(uri), 'g')
 
     if len(handler)
