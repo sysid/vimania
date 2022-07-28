@@ -60,7 +60,15 @@ let g:textobj_uri_search_timeout = 100
 function! TextobjUriOpen()
         let p = resolve(expand(g:textobj_uri, ':p'))
         call TwDebug(printf('TextobjUriOpen:textobj_uri %s fullpath: %s', g:textobj_uri, p))
-    if executable('open-cli')
+
+        call TwDebug(printf('xxxx TextobjUriOpen:textobj_uri %s fullpath: %s', g:textobj_uri, g:textobj_uri[0:0]))
+
+        " if startswith # then search in file
+        if g:textobj_uri[0:0] ==# '#'
+            "silent execute '/'.printf('^%s', g:textobj_uri)
+            silent execute '/^'.g:textobj_uri
+
+      elseif executable('open-cli')
         call TwDebug(printf('TextobjUriOpen: %s %s &', 'open-cli', shellescape(p)))
         silent! call system(printf('%s %s &', 'open-cli', shellescape(g:textobj_uri)))
     elseif executable('xdg-open')

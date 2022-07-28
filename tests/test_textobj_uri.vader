@@ -74,3 +74,13 @@ Then ():
 "Execute (TwFindTd: assert vimwiki filetype):
 "  TwFindTd e4m %
 "  AssertEqual 'vimwiki', &filetype
+
+
+""" not working ???"
+"Given (markdown anchor within file):
+"  [xxx](# yyy)
+"  # yyy
+"Do (jump to):
+"  go
+"Then ():
+"  Assert line('.') == 2
