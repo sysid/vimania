@@ -59,12 +59,12 @@ upload:  ## upload to PyPi
 	twine upload --verbose pythonx/dist/*
 
 .PHONY: clean-vim
-clean-vim:  ## clean pythonx directory
+clean-vim:  ## clean pythonx directory for PyCharm development
 	@echo "Removing python packages from pythonx"
 	@pushd pythonx; git clean -d -x -f; popd
 
 .PHONY: build-vim
-build-vim: _confirm ## copy all python packages into pythonx
+build-vim: _confirm ## copy all python packages into pythonx (for local installation)
 	./scripts/cp_venv.sh dev
 
 .PHONY: tag
