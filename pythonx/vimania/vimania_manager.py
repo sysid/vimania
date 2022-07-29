@@ -181,7 +181,13 @@ class VimaniaManager:
             new_text = handle_it(vim.current.buffer[:], path, read=True)
         else:  # autocmd bufwrite
             new_text = handle_it(vim.current.buffer[:], path, read=False)
-        vim.current.buffer[:] = new_text
+
+        # Bug: Vista buffer is not modifiable
+        is_modifiable = vim.current.buffer.options["modifiable"]
+        if is_modifiable:
+            vim.current.buffer[:] = new_text
+        else:
+            _log.warning(f"Current buffer {vim.current.buffer.name}:{vim.current.buffer.number} = {is_modifiable=}")
 
     @staticmethod
     @err_to_scratch_buffer

@@ -201,6 +201,10 @@ PyCharm's source route should be `pythonx`. However, this causes problems when a
 So before starting PyCharm run `make clean-vim` to clear `pythonx`.
 The module will look up dependencies in the development `.venv`.
 
+## VimaniaManager (VIM Interface)
+- cannot be tested within PyCharm, needs to be called from VIM.
+- activate logging and use: `/Users/Q187392/dev/vim/vimania/tests/x.md`
+
 ## Vim Plugin
 for vim-plugin development do NOT clear `pythonx` because loading of python module will not work. The vim
 plugin needs to find all dependencies in `pythonx`.
