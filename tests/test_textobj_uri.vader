@@ -76,11 +76,12 @@ Then ():
 "  AssertEqual 'vimwiki', &filetype
 
 
-""" not working ???"
-"Given (markdown anchor within file):
-"  [xxx](# yyy)
-"  # yyy
-"Do (jump to):
-"  go
-"Then ():
-"  Assert line('.') == 2
+""" not working ??? search ^# at beginning of line
+Given markdown (anchor within file):
+  [xxx](# yyy)
+  # yyy
+Do (jump to):
+  go
+Then ():
+  AssertEqual 'markdown', &filetype
+  Assert line('.') == 2
