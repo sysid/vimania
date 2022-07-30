@@ -215,6 +215,7 @@ However, try to avoid bringing up PyCharm because it tries to index the entire d
 
 
 ## Testing
+- deactivate autocommand `:Vista` if active
 
 Setup: Make sure that the working directory of test-runs is the project-root (e.g. in PyCharm)
 `make test`
